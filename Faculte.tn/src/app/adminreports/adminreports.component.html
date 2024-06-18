@@ -1,0 +1,67 @@
+<div class="side-menu">
+    <div class="brand-name">
+        <h1>Faculté.tn</h1>
+    </div>
+    <ul>
+        <li routerLink="/admin"><img src="assets/student.png" alt="">&nbsp;<span>Students</span> </li>
+        <li routerLink="/adminteacher"><img src="assets/teacher.png" alt="">&nbsp;<span>Teachers</span> </li>
+        <li routerLink="/adminmajorsubject"><img src="assets/subjectsadmin.png" alt="">&nbsp;<span>Subjects/Majors</span> </li>
+        <li routerLink="/admincourse"><img src="assets/course.jpg" alt="">&nbsp;<span>Course</span> </li>
+        <li routerLink="/adminreport"><img src="assets/report.jpg" alt="">&nbsp;<span>Reports</span> </li>
+        <li><img src="assets/money.jpg" alt="">&nbsp;<span>Payments</span> </li>
+        <li><img src="assets/settings.png" alt="">&nbsp;<span>Settings</span> </li>
+    </ul>
+</div>
+
+<div class="recent-payments">
+    <div class="title">
+      <h2>Reported Posts</h2>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Content</th>
+          <th>User</th>
+          <th>Reason</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let post of reportedPosts">
+          <td>{{ post.postDto.content }}</td>
+          <td>{{ post.postDto.author.firstName }} {{ post.postDto.author.lastName }}</td>
+          <td>{{ post.reason }}</td>
+          <td>
+            <button class="delete-btn" (click)="deleteReportedPost(post.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="recent-payments">
+    <div class="title">
+      <h2>Reported Comments</h2>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Content</th>
+          <th>User</th>
+          <th>Reason</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let comment of reportedComments">
+          <td>{{ comment.commentDto.content }}</td>
+          <td>{{ comment.commentDto.user.firstName }} {{ comment.commentDto.user.lastName }}</td>
+          <td>{{ comment.reason }}</td>
+          <td>
+            <button class="delete-btn" (click)="deleteReportedComment(comment.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

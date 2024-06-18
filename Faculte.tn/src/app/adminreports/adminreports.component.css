@@ -1,0 +1,249 @@
+/* Reset styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Global styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f1f1f1;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+/* Typography */
+h1, h2, h3 {
+    color: #444;
+}
+
+/* Buttons */
+.edit-btn, .delete-btn, button[type="submit"] {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.edit-btn:hover, .delete-btn:hover, button[type="submit"]:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);   
+}
+
+/* Side Menu */
+.side-menu {
+    position: fixed;
+    background: #647adc;
+    width: 20vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease;
+    
+}
+
+.side-menu .brand-name {
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+.side-menu li {
+    font-size: 18px;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.side-menu li img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.side-menu li:hover {
+    background: #f05462;
+}
+
+/* Container */
+.container {
+    margin-left: 20vw;
+    padding-top: 70px;
+    transition: all 0.3s ease;
+}
+
+/* Header */
+.header {
+    position: fixed;
+    top: 0;
+    left: 20vw;
+    width: 80vw;
+    height: 70px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.search input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.search button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* Content */
+.content {
+    padding: 20px;
+}
+
+/* Cards */
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card {
+    width: 30%;
+    height: 200px;
+    margin-bottom: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Recent Payments */
+.recent-payments {
+    margin-left: 400px;
+    flex: 1;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.title {
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #999;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+
+
+
+/* Table */
+table {
+    width: 95%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #f8f9fa;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+th {
+    font-weight: bold;
+    color: #444;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tbody tr:hover {
+    background-color: #e2e5ff;
+}
+
+/* Buttons inside table */
+td button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+td button.edit-btn {
+    background-color: #007bff;
+    color: #fff;
+}
+
+td button.delete-btn {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+td button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsiveness */
+@media screen and (max-width: 768px) {
+    .side-menu {
+        width: 70px;
+    }
+
+    .side-menu .brand-name {
+        display: none;
+    }
+
+    .side-menu li span {
+        display: none;
+    }
+
+    .container {
+        margin-left: 70px;
+    }
+
+    .header {
+        left: 70px;
+    }
+}

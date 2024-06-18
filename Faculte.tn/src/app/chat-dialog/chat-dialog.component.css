@@ -1,0 +1,312 @@
+/* Chat dialog container */
+.chat-dialog-container {
+    display: none;
+    position: fixed;
+    overflow: hidden;
+    bottom: 0;
+    left: 75%;
+    transform: translateX(-50%) scale(0.8); /* Initial scale down effect */
+    width: 400px; /* Adjust the width as needed */
+    background-color: rgba(255, 255, 255, 0); /* Transparent background */
+    border-radius: 10px; /* Border radius */
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0); /* Initial shadow effect */
+    z-index: 9999; /* Ensure the overlay is above other content */
+    opacity: 0; /* Initially set opacity to 0 */
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.5s ease, box-shadow 0.5s ease, background-color 0.5s ease; /* Add transition effect */
+}
+
+/* Show chat dialog */
+.show-popup {
+    display: flex;
+    opacity: 1; /* Set opacity to 1 when shown */
+    transform: translateX(-50%) scale(1); /* Scale up effect */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Shadow effect on display */
+    background-color: rgba(255, 255, 255, 1); /* White background color */
+}
+
+/* Close button transition */
+.close-button {
+    transition: color 0.3s ease;
+}
+
+.close-button:hover {
+    color: #333333; /* Change color on hover */
+}
+
+/* Chat dialog header */
+.chat-dialog-container h2 {
+    transition: color 0.3s ease; /* Header text color transition */
+}
+
+.chat-dialog-container:hover h2 {
+    color: #007bff; /* Change header text color on hover */
+}
+
+/* Chat input area transition */
+.chat-input-area {
+    transition: background-color 0.3s ease; /* Background color transition */
+}
+
+.chat-input-area:hover {
+    background-color: rgba(0, 123, 255, 0.1); /* Change background color on hover */
+}
+
+
+
+.chat-dialog-container h2 {
+    font-size: 17px;
+    margin: 0;
+    padding: 15px 20px;
+    color: #333333;
+    border-bottom: 1px solid #e0e0e0;
+    border-radius: 10px 10px 0 0;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: #999999;
+    font-size: 18px;
+}
+
+.close-button:hover {
+    color: #333333;
+}
+
+.chat-dialog-container:hover {
+    transform: translate(-50%, -5px); /* Move slightly up on hover */
+}
+
+.chat-input {
+    width: calc(100% - 40px); 
+    margin-right: 10px; 
+    transition: width 0.3s ease;
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    outline: none;
+}
+
+.chat-input-area {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.chat-input:focus-within {
+    width: calc(100% - 80px); /* Adjust the width when input is focused */
+}
+
+.chat-button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: #007bff;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+    outline: none;
+}
+
+.chat-button:hover {
+    background-color: #0056b3;
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 400px; /* Adjust height as needed */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.sent-message {
+    background-color: #007bff; /* Blue background color for sent messages */
+    color: black; /* White text color */
+    text-align: right; /* Align sent messages to the right */
+    padding: 10px; /* Add padding for spacing */
+    word-wrap: break-word; /* Wrap long messages */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    transition: background-color 0.3s ease; /* Add transition effect */
+    border-radius: 20px; /* Round the corners */
+    margin-top: 1px; /* Add margin to separate messages */
+    margin-left: auto; /* Align to the right */
+    position: relative; /* Position relative to allow absolute positioning of border */
+}
+
+.sent-message .message-content {
+    background-color: rgb(130, 223, 246); /* Inherit background color from parent */
+    padding: 5px; /* Adjust padding for smaller messages */
+    border-radius: 20px; /* Round the corners */
+    display: inline-block; /* Allow the border to wrap around the content */
+    max-width: 70%; /* Limit the width of the content */
+}
+
+.sent-message:after {
+    content: ''; /* Add an empty content to create the border */
+    position: absolute; /* Position absolute to overlay on top of the message content */
+    top: 0; /* Align with the top of the message */
+    bottom: 0; /* Align with the bottom of the message */
+    left: 0; /* Align with the left edge of the message */
+    right: 0; /* Align with the right edge of the message */
+    border-radius: 20px; /* Round the corners */
+    padding: 5px; /* Adjust padding for smaller messages */
+    margin-left: 5px; /* Add spacing between the content and the border */
+}
+
+
+
+
+
+.received-message {
+  background-color: #EAEAEA; /* Light gray for received messages */
+  text-align: left; /* Align received messages to the left */
+}
+
+.message {
+  padding: 8px;
+  margin-bottom: 5px;
+}
+
+.sender-name {
+  font-weight: bold;
+}
+
+.message-content {
+  word-wrap: break-word; /* Ensure long messages wrap within the container */
+}
+
+
+  
+.chat-input {
+    width: calc(100% - 40px); /* Adjust the input width to fit within the container */
+    margin-right: 10px; /* Add some spacing between the input and button */
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+    transition: border-color 0.3s ease; /* Add transition effect */
+}
+
+.chat-input input:focus {
+    border-color: #007bff; /* Change border color on focus */
+}
+
+.chat-input button {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Add transition effect */
+}
+
+.chat-input button:hover {
+    background-color: #0056b3; /* Darken button color on hover */
+}
+
+/* Style for individual message */
+.message {
+    background-color: #f2f2f2;
+    padding: 8px 12px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease; /* Add transition effect */
+}
+
+.message:hover {
+    background-color: #e6e6e6; /* Lighten message background color on hover */
+}
+
+/* Add this class to show the chat dialog */
+.show-popup {
+    display: block;
+}
+
+
+
+
+.message-options {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: none;
+    cursor: pointer;
+    z-index: 10; 
+
+}
+
+.sent-message:hover .message-options {
+    display: block; /* Show options when hovering over sent messages */
+    right: 250px; /* Adjust position for sent messages */
+}
+
+.received-message:hover .message-options {
+    display: block; /* Show options when hovering over received messages */
+    right: 5px; /* Adjust position for received messages */
+}
+
+.message-options i {
+    color: #999;
+}
+
+.message-options i:hover {
+    color: #333;
+}
+
+
+
+.message-content {
+    position: relative;
+    padding-right: 30px; 
+}
+
+/* Edit message */
+.edit-menu {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+  }
+  
+  .edit-menu button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+  }
+  
+  .edit-menu button:hover {
+    background-color: #f0f0f0;
+  }
+  
+  
+  

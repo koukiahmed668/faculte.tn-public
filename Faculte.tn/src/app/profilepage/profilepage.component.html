@@ -1,0 +1,329 @@
+<nav>
+
+    <div class="left">
+  
+        <div class="logo">
+            <img src="assets/facultetext.png">
+        </div>
+  
+        <div class="search_bar">
+  
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="{{ 'searchPlaceholder' | translate }}" #searchInput (keydown.enter)="search(searchInput.value)">
+  
+        </div>
+  
+    </div>
+  
+  
+  
+    <div class="right">
+  
+      <i class="fa-solid fa-list-ul" (click)="languageSwitcher.togglePopup()"></i>
+        <i class="fa-solid fa-message" (click)="toggleChatList()"></i>
+        <div class="notification-icon" (click)="toggleNotification()">
+          <i class="fa-solid fa-bell"></i>
+          <div class="notification-badge">0</div>
+        </div>      
+        <i class="fa-solid fa-moon" (click)="toggleDarkMode()"></i>
+        <img src="assets/profile.png" [routerLink]="['/profile', loggedInUserId]">
+  
+    </div>
+  
+  </nav>
+  
+  <app-language-switcher #languageSwitcher></app-language-switcher>
+  <app-notification *ngIf="showNotification" #notification></app-notification>
+  <app-chat-list *ngIf="showChatList"></app-chat-list> <!-- Add chat list component with ngIf -->
+  
+
+  <div class="profile-container">
+    <img src="assets/cover.png" class="cover-img">
+    <div class="profile-details">
+        <div class="pd-left">
+            <div class="pd-row">
+                <img src="assets/profile.png" class="pd-img" >
+                <div>
+                    <h3>{{ userDetails.firstName }} {{ userDetails.lastName }}</h3>
+                    <p>100 Friends</p>
+                    <img src="assets/member-1.png">
+                    <img src="assets/member-2.png">
+                    <img src="assets/member-3.png">
+
+                </div>
+            </div>
+        </div>
+        <div class="pd-right">
+            <!-- Display different buttons based on friendship status -->
+            <ng-container *ngIf="userId != loggedInUserId">
+                <ng-container *ngIf="friendshipStatus.status === 'none'">
+                    <button class="friend-button" type="button" (click)="sendFriendRequest()">
+                        <img src="assets/add-friends.png"> Add Friend
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="friendshipStatus.status === 'sent'">
+                    <button class="friend-button" type="button" (click)="cancelFriendRequest()">
+                        <img src="assets/add-friends.png"> Cancel Request
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="friendshipStatus.status === 'received'">
+                    <button class="friend-button" type="button" (click)="acceptFriendRequest(userDetails.id)">
+                        Accept
+                    </button>
+                    <button class="friend-button" type="button" (click)="rejectFriendRequest(userDetails.id)">
+                        Decline
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="friendshipStatus.status === 'friends'">
+                    <button class="friend-button" type="button" (click)="deleteFriendship()">
+                        Delete Friend
+                    </button>
+                </ng-container>
+            </ng-container>
+            
+            <!-- No buttons displayed if friends -->
+            <button *ngIf="userId != loggedInUserId" type="button" [routerLink]="['/chatpopup', loggedInUserId, userDetails.id]" queryParamsHandling="merge"> <img src="assets/message.png" alt=""> Message</button>
+            <button *ngIf="userId == loggedInUserId" type="button" (click)="openEditForm()">Edit profile</button>
+        </div>          
+          
+        <div *ngIf="isEditFormOpen" class="edit-form">
+            <!-- Edit form -->
+            <form>
+                <!-- Input fields for editing user information -->
+                <div class="form-group">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" [(ngModel)]="editedUserInfo.firstName" id="firstName" name="firstName" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" [(ngModel)]="editedUserInfo.lastName" id="lastName" name="lastName" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="phoneNumber">Phone Number:</label>
+                    <input type="text" [(ngModel)]="editedUserInfo.phoneNumber" id="phoneNumber" name="phoneNumber" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="specialty">Specialty:</label>
+                    <select [(ngModel)]="editedUserInfo.specialty" id="specialty" name="specialty" class="form-control">
+                        <option value="" disabled selected>Select a specialty</option>
+                        <option *ngFor="let specialty of specialties" [value]="specialty.id">{{ specialty.name }}</option>
+                    </select>
+                </div>
+                
+        
+                <!-- Buttons to save or cancel the changes -->
+                <div class="button-group">
+                    <button (click)="updateUserInfo()" class="btn btn-primary">Save Changes</button>
+                    <button (click)="closeEditForm()" class="btn btn-secondary">Cancel</button>
+                </div>
+            </form>
+        </div>
+        
+
+          
+        
+    </div>
+
+
+    <div class="profile-info">
+        <div class="info-col">
+
+            <div class="profile-intro">
+                <h3>Intro</h3>
+                <p class="intro-text">I HATE CODING FRONT</p>
+                <hr>
+
+                <ul>
+                    <li> <img src="assets/profile-job.png"> prof d'info</li>
+                    <li> <img src="assets/profile-job.png" alt=""> discors mod </li>
+                </ul>
+
+            </div>
+
+            <div class="profile-intro">
+                <div class="title-box">
+                    <h3>Photos</h3>
+                    <a href="">All Photos</a>
+                </div>
+                <div class="photo-box">
+                    <div><img src="assets/photo1.png" alt=""></div>
+                    <div><img src="assets/photo2.png" alt=""></div>
+                    <div><img src="assets/photo3.png" alt=""></div>
+                    <div><img src="assets/photo4.png" alt=""></div>
+
+                </div>
+            </div>
+
+
+
+            <div class="profile-intro">
+                <div class="title-box">
+                    <h3>Friends</h3>
+                    <a href="">All Friends</a>
+                </div>
+                <p>100 friends</p>
+                <div class="photo-box">
+                    <div><img src="assets/photo1.png" alt=""></div>
+                    <div><img src="assets/photo2.png" alt=""></div>
+                    <div><img src="assets/photo3.png" alt=""></div>
+                    <div><img src="assets/photo4.png" alt=""></div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="post-col">
+            <div *ngIf="userId == loggedInUserId" class="my_post">
+
+                <div class="post_top">
+      
+                    <img src="assets/profile.png">
+                    <input type="text" placeholder="Share a course for your students" [(ngModel)]="postContent">
+                     <!-- Add the select dropdown menu for selecting subjects -->
+                     <div class="custom-select">
+                      <select [(ngModel)]="selectedSubjectId">
+                          <option value="" disabled selected>Select a subject</option>
+                          <option *ngFor="let subject of subjects" [value]="subject.id">{{ subject.name }}</option>
+                      </select>
+                  </div>
+      
+                </div>
+      
+                <hr>
+      
+                <div class="post_bottom">
+      
+                    <div class="post_icon">
+                      <input id="fileInput" type="file" (change)="onFileSelected($event)" multiple>
+                      <i class="fa-solid fa-file"></i>
+                      <p>Upload File</p>
+                    </div>
+      
+      
+                    <div class="post_icon" (click)="createPost()" >
+                      <i class="fa-solid fa-share"></i>
+                      <p>Share Post</p>
+                    </div>
+      
+                </div>
+      
+            </div>
+      
+      
+            <div *ngFor="let post of posts" class="friends_post">
+      
+                <div class="friend_post_top">
+      
+                    <div class="img_and_name">
+      
+                        <img src="assets/profile.png">
+      
+                        <div class="friends_name">
+                            <p class="friends_name">
+                              <span>{{ userDetails.firstName }} {{ userDetails.lastName }}</span> 
+                             </p>
+                            <p class="time">{{ post.createdAt | date }}<i class="fa-solid fa-user-group"></i></p>
+                        </div>
+                        
+      
+                    </div>
+      
+                    <div class="menu" (click)="toggleMenu(post.id)">
+                      <i class="fa-solid fa-ellipsis"></i>
+                      <!-- Add a ngIf directive to conditionally display the menu -->
+                      <div *ngIf="post.showMenu" class="menu-options">
+                          <!-- Call the deletePost method with both postId and loggedInUserId -->
+                          <p (click)="savePost(post.id)">Save Post</p>
+                          <p (click)="toggleEdit(post)">Edit Post</p>
+                          <p (click)="deletePost(post.id)">Delete Post</p>
+      
+                      </div>
+                  </div>
+      
+                </div>
+      
+                <p>{{ post.content }}</p>
+      
+               <!-- Display the file if exists -->
+                 <!-- OR Display images/files using a carousel/slider -->
+                 <div class="post-files-carousel">
+                  <!-- Display the file if only one file exists -->
+                  <img *ngIf="post.files.length === 1 && isImageFile(post.files[0])" [src]="post.files[0].fileUrl" alt="{{ post.files[0].fileName }}">
+                  
+                  <!-- Use NgbCarousel for multiple files -->
+                  <ngb-carousel *ngIf="post.files.length > 1">
+                      <ng-template ngFor let-file [ngForOf]="post.files">
+                          <ng-template ngbSlide>
+                              <!-- Display image/file -->
+                              <img *ngIf="isImageFile(file)" [src]="file.fileUrl" alt="{{ file.fileName }}">
+                              <!-- Add other file types here if needed -->
+                          </ng-template>
+                      </ng-template>
+                  </ngb-carousel>
+              </div>
+      
+      
+                <div class="info">
+      
+                    <div class="emoji_img">
+                      <p>{{ post.likeCount }} Likes</p>
+                    </div>
+      
+                    <div class="comment">
+                      <p>{{ post.commentCount }} Comments</p>
+                      <p>{{ post.shareCount }} Shares</p>
+                    </div>
+      
+                </div>
+      
+                <hr>
+      
+                <div class="like">
+      
+                    <div class="like_icon">
+                        <i class="fa-solid fa-thumbs-up activi"></i>
+                        <p>Like</p>
+                    </div>
+      
+                    <div class="like_icon">
+                        <i class="fa-solid fa-message"></i>
+                        <p>Comments</p>
+                    </div>
+      
+                    <div class="like_icon">
+                        <i class="fa-solid fa-share"></i>
+                        <p>Share</p>
+                    </div>
+      
+                </div>
+      
+                <hr>
+      
+                <div class="comment_warpper">
+      
+                    <img src="assets/profile.png">
+                    <div class="circle"></div>
+      
+                    <div class="comment_search">
+      
+                        <input type="text" placeholder="Write a comment">
+      
+                    </div>
+      
+                </div>
+                <div *ngIf="post.showEditForm">
+                  <textarea [(ngModel)]="newContent"></textarea> <!-- Textarea for updating content -->
+                  <input type="file" (change)="onNewFilesSelected($event)" multiple> <!-- File input for uploading files -->
+                  <button (click)="updatePost(post.id, newContent, newFiles)">Update Post</button>
+                  <button (click)="toggleEdit(post)">Cancel</button> <!-- Button to cancel editing -->
+                </div>
+      
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+  </div>

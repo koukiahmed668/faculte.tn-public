@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="#" routerLink="/">
+      <img src="assets/facultetext.png" alt="Faculte.tn Logo">
+    </a>
+
+    <div class="navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+       
+
+      </ul>
+
+      <div class="ml-auto">
+        <button class="btn btn-outline-secondary mr-2" routerLink="/sign-in">{{ 'signIn' | translate }}</button>
+        <button class="btn btn-primary" routerLink="/register">{{ 'joinNow' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- landing-page.component.html -->
+
+<div class="container-fluid landing-container">
+  <!-- Left Half: Video Background -->
+  <div class="col-md-6 video-container">
+    <video autoplay loop muted class="w-100">
+      <source src="assets/faculte.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <div class="col-md-6 form-container">
+    <div class="welcome-message">
+      <h2>{{ 'welcomeTitle' | translate }}</h2>
+    </div>
+
+    <!-- Updated Section: Welcome Message and "Join Now" Button -->
+    <div class="welcome-info">
+      <p class="paragraph">
+        {{ 'welcomeText1' | translate }}
+      </p>
+      <p class="paragraph">
+        {{ 'welcomeText2' | translate }}
+      </p>
+      <button class="btn btn-primary" (click)="openQuestionModal()" routerLink="/register">{{ 'joinNow' | translate }}</button>
+    </div>
+  </div>
+</div>

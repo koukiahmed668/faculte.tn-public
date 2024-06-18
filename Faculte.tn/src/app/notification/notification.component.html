@@ -1,0 +1,16 @@
+<div class="notification-container">
+    <div class="notification-dropdown" [class.active]="showNotificationDropdown">
+        <ul>
+            <ng-container *ngFor="let notification of notifications">
+                <li>
+                    <p>{{ notification.message }}</p>
+                    <!-- X button for deletion -->
+                    <button class="delete-button" (click)="deleteNotification(notification.id)">x</button>
+                    <!-- Show buttons only if it's a friend request notification -->
+                    <button *ngIf="isFriendRequestNotification(notification)" (click)="acceptFriendRequest(notification)">Accept</button>
+                    <button *ngIf="isFriendRequestNotification(notification)" (click)="declineFriendRequest(notification)">Decline</button>
+                </li>
+            </ng-container>
+        </ul>
+    </div>
+</div>

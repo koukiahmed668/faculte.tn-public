@@ -1,0 +1,335 @@
+<nav>
+
+  <div class="left">
+
+      <div class="logo">
+          <img src="assets/facultetext.png">
+      </div>
+
+      <div class="search_bar">
+
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="{{ 'searchPlaceholder' | translate }}" #searchInput (keydown.enter)="search(searchInput.value)">
+
+      </div>
+
+  </div>
+
+
+
+  <div class="right">
+
+    <i class="fa-solid fa-list-ul" (click)="languageSwitcher.togglePopup()"></i>
+      <i class="fa-solid fa-message" (click)="toggleChatList()"></i>
+      <div class="notification-icon" (click)="toggleNotification()">
+        <i class="fa-solid fa-bell"></i>
+        <div class="notification-badge">0</div>
+      </div>      
+      <i class="fa-solid fa-moon" (click)="toggleDarkMode()"></i>
+      <img src="assets/profile.png" [routerLink]="['/profile', loggedInUserId]">
+
+  </div>
+
+</nav>
+<app-language-switcher #languageSwitcher></app-language-switcher>
+<app-notification *ngIf="showNotification" #notification></app-notification>
+<app-chat-list *ngIf="showChatList"></app-chat-list> <!-- Add chat list component with ngIf -->
+<app-course-proposal-form *ngIf="showCourseProposalForm"></app-course-proposal-form>
+
+
+<div class="main">
+
+  <!------------------left------------------->
+
+  <div class="left">
+
+    <div class="img" (click)="toggleMajorList()">
+      <i class="fa-solid fa-book"></i> 
+      <p>{{ 'subjects' | translate }}</p>
+    </div>
+    
+     <!-- Display majors -->
+     <div *ngIf="!selectedMajorId && showMajorList">
+      <div class="subject-list">
+        <div class="subject" *ngFor="let major of majors" (click)="onSelectMajor(major.id)">
+          <p>{{ major.name }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Display specialties based on selected major -->
+    <div *ngIf="selectedMajorId && !selectedSpecialtyId && showSpecialtyList">
+      <div class="subject-list">
+        <div class="subject" *ngFor="let specialty of specialties" (click)="onSelectSpecialty(specialty.id)">
+          <p>{{ specialty.name }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Display subjects based on selected specialty -->
+    <div *ngIf="selectedSpecialtyId && showSubjectList">
+      <div class="subject-list">
+        <div class="subject" *ngFor="let subject of subjects" (click)="onSelectSubject(subject.id)">
+          <p>{{ subject.name }}</p>
+        </div>
+      </div>
+    </div>
+
+   
+  
+
+    <div class="img">
+      <i class="fa-solid fa-chart-line"></i>
+        <p>{{ 'analytics' | translate }}</p>
+    </div>
+
+    <div class="img">
+      <i class="fa-solid fa-user-group"></i>
+        <p>{{ 'friends' | translate }}</p>
+    </div>
+
+    <div class="img" (click)="getBookmarkedPosts()">
+      <i class="fa-solid fa-bookmark"></i>
+      <p>{{ 'bookmarks' | translate }}</p>
+  </div>
+
+</div>
+  
+
+  <!------------center---------------------->
+
+  <div class="center">
+
+      <div class="my_post">
+
+          <div class="post_top">
+
+              <img src="assets/profile.png" routerLink="/profilepage">
+              <input type="text" placeholder="{{ 'sharePlaceholder' | translate }}" [(ngModel)]="postContent">
+               <!-- Add the select dropdown menu for selecting subjects -->
+               <div class="custom-select-container">
+                <select [(ngModel)]="selectedSubjectId">
+                  <option value="" disabled selected>{{ 'selectSubjectPlaceholder' | translate }}</option>
+                  <option *ngFor="let subject of subjects" [value]="subject.id">{{ subject.name }}</option>
+                </select>
+                <div class="select-arrow"></div>
+              </div>
+              
+              
+              
+
+          </div>
+
+          <hr>
+
+          <div class="post_bottom">
+
+              <div class="post_icon">
+                <input id="fileInput" type="file" (change)="onFileSelected($event)" multiple>
+                <i class="fa-solid fa-file"></i>
+                <p>{{ 'uploadFile' | translate }}</p>
+              </div>
+
+
+              <div class="post_icon" [class.disabled]="postContent.trim() === ''" (click)="createPost()">
+                <i class="fa-solid fa-share"></i>
+                <p>{{ 'sharePost' | translate }}</p>
+              </div>
+
+          </div>
+
+      </div>
+
+
+      <div *ngFor="let post of posts" class="friends_post">
+
+          <div class="friend_post_top">
+
+            <div class="img_and_name">
+                <!-- Update the routerLink to navigate to the profile page of the post author -->
+                <img src="assets/profile.png" [routerLink]="['/profile', post.author?.id]">
+                <div class="friends_name">
+                    <!-- Display the author's name and ID -->
+                    <p class="friends_name">
+                        <!-- Update the routerLink to pass the user's ID as a parameter -->
+                        <a [routerLink]="['/profile', post.author?.id]">
+                            {{ post.author?.firstName }} {{ post.author?.lastName }}
+                        </a>
+                    </p>
+                    <p class="time">{{ post.createdAt | date }}<i class="fa-solid fa-user-group"></i></p>
+                </div>
+            </div>
+
+              <div class="menu" (click)="toggleMenu(post.id)">
+                <i class="fa-solid fa-ellipsis"></i>
+                <!-- Add a ngIf directive to conditionally display the menu -->
+                <div *ngIf="post.showMenu" class="menu-options">
+                    <!-- Call the deletePost method with both postId and loggedInUserId -->
+                    <p (click)="savePost(post.id)">{{ 'savePost' | translate }}</p>
+                    <p *ngIf="post.author.id !== loggedInUserId" (click)="reportPost(post.id)">{{ 'Report Post' }}</p>
+                    <p *ngIf="post.author.id === loggedInUserId" (click)="toggleEdit(post)">{{ 'editPost' | translate }}</p>
+                    <p *ngIf="post.author.id === loggedInUserId" (click)="deletePost(post.id)">{{ 'deletePost' | translate }}</p>
+
+                </div>
+            </div>
+
+          </div>
+
+          <p>{{ post.content }}</p>
+
+         <!-- Display the file if exists -->
+           <!-- OR Display images/files using a carousel/slider -->
+          <!-- Display images/files using a carousel/slider -->
+          <div class="post-files-carousel">
+            <!-- Check if post.files is defined before accessing its length property -->
+            <ng-container *ngIf="post.files">
+                <!-- Display the file if only one file exists -->
+                <ng-container *ngIf="post.files.length === 1">
+                    <img *ngIf="isImageFile(post.files[0])" [src]="post.files[0].fileUrl" alt="{{ post.files[0].fileName }}">
+                    <iframe *ngIf="isPdfFile(post.files[0])" [src]="sanitizeUrl(post.files[0].fileUrl)" width="100%" height="500px"></iframe>
+                </ng-container>
+                
+                <!-- Use NgbCarousel for multiple files -->
+                <ngb-carousel *ngIf="post.files.length > 1">
+                    <ng-template ngFor let-file [ngForOf]="post.files">
+                        <ng-template ngbSlide>
+                            <!-- Display image/file -->
+                            <img *ngIf="isImageFile(file)" [src]="file.fileUrl" alt="{{ file.fileName }}">
+                            <iframe *ngIf="isPdfFile(file)" [src]="sanitizeUrl(file.fileUrl)" width="100%" height="500px"></iframe>
+                        </ng-template>
+                    </ng-template>
+                </ngb-carousel>
+            </ng-container>
+        </div>
+        
+
+
+          <div class="info">
+
+              <div class="emoji_img">
+                <p>{{ post.likeCount }} {{ 'likes' | translate }}</p>
+              </div>
+
+              <div class="comment">
+                <p>{{ post.commentCount }} {{ 'comments' | translate }}</p>
+                <p>{{ post.shareCount }} {{ 'shares' | translate }}</p>
+              </div>
+
+          </div>
+
+          <hr>
+
+          <div class="like">
+
+            <div class="like_icon" [class.active]="post.liked" (click)="toggleLike(post)" (click)="likePost(post.id)">
+                <i class="fa-solid fa-thumbs-up activi"></i>
+                  <p>{{ 'like' | translate }}</p>
+              </div>
+
+              <div class="like_icon" (click)="toggleComments(post)">
+                  <i class="fa-solid fa-message"></i>
+                  <p>{{ 'comments' | translate }}</p>
+
+              </div>
+
+              <div class="like_icon" (click)="openShareModal(post)">
+                  <i class="fa-solid fa-share"></i>
+                  <p>{{ 'share' | translate }}</p>
+              </div>
+
+          </div>
+
+          <hr>
+          <app-post-comments *ngIf="post.showComments" [postId]="post.id"></app-post-comments>
+
+
+         
+          <div *ngIf="post.showEditForm">
+            <textarea [(ngModel)]="newContent"></textarea> <!-- Textarea for updating content -->
+            <input type="file" (change)="onNewFilesSelected($event)" multiple> <!-- File input for uploading files -->
+            <button (click)="updatePost(post.id, newContent, newFiles)">{{ 'updatePost' | translate }}</button>
+            <button (click)="toggleEdit(post)">{{ 'cancel' | translate }}</button> <!-- Button to cancel editing -->
+          </div>
+
+      </div>
+
+
+  </div>
+
+  <!------------------right------------------>
+
+  <div class="right">
+      
+    <div class="first_warpper">
+
+        <div class="page">
+    
+            <h2>{{ 'formations' | translate }}</h2>
+            <div class="menu">
+                <i class="fa-solid fa-ellipsis"></i>
+            </div>
+    
+        </div>
+    
+        <div class="course-carousel" *ngIf="courses.length > 0">
+            <div class="carousel-wrapper">
+              <div class="arrow left-arrow" (click)="prevSlide()">
+                <i class="fa-solid fa-chevron-left"></i>
+              </div>
+              <ng-container *ngFor="let course of courses; let i = index">
+                <div class="course-info" *ngIf="currentIndex === i">
+                  <div class="course-image">
+                    <img *ngIf="course.file" [src]="course.file.fileUrl" alt="Course Image">
+                  </div>
+                  <div class="course-details">
+                    <div class="course-name">{{ course.name }}</div>
+                    <button class="see-more-btn" (click)="openCourseDetailsPopup(course.id)">{{ 'seeMore' | translate }}</button>
+                  </div>
+                </div>
+              </ng-container>
+              <div class="arrow right-arrow" (click)="nextSlide()">
+                <i class="fa-solid fa-chevron-right"></i>
+              </div>
+            </div>
+          </div>
+    
+          <div class="page_icon" (click)="toggleCourseProposalForm()">
+            <i class="fa-solid fa-bullhorn"></i>
+            <p>{{ 'proposeCourse' | translate }}</p>
+        </div>
+    </div>
+    
+
+
+      <hr>
+
+
+      <div class="third_warpper">
+
+        <div class="contact_tag">
+          <h2>{{ 'contacts' | translate }}</h2>
+          <div class="contact_icon">
+            <!-- Add icons for contact options -->
+            <i class="fa-solid fa-video"></i>
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <i class="fa-solid fa-ellipsis"></i>
+          </div>
+        </div>
+        
+        <div class="contact" *ngFor="let friend of friends">
+          <app-chat-dialog [friendId]="friend.id" 
+          [friendFirstName]="friend.firstName" 
+          [friendLastName]="friend.lastName" 
+          #chatdialog >
+          </app-chat-dialog>
+          <img src="assets/profile.png">
+          <p class="chat-trigger" (click)="chatdialog.toggleChatContainer()">{{ friend.firstName }} {{ friend.lastName }}</p>
+        </div>
+
+
+
+      </div>
+
+  </div>
+
+</div>

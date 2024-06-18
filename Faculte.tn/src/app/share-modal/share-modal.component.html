@@ -1,0 +1,20 @@
+<div class="main">
+    <!-- Your existing content here -->
+  
+    <!-- Modal container -->
+    <div class="modal-container">
+      <div class="modal-content">
+        <!-- Your modal content here -->
+        <h2 class="modal-title">Share Post</h2>
+        <div class="modal-body">
+          <p>Enter additional content:</p>
+          <textarea class="additional-content" [(ngModel)]="additionalContent" rows="4"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button class="modal-button cancel" (click)="onNoClick()">Cancel</button>
+          <button class="modal-button" (click)="sharePost()">Share</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,99 @@
+
+    <div class="side-menu">
+        <div class="brand-name">
+            <h1>Faculté.tn</h1>
+        </div>
+        <ul>
+            <li routerLink="/admin"><img src="assets/student.png" alt="">&nbsp;<span>Students</span> </li>
+            <li routerLink="/adminteacher"><img src="assets/teacher.png" alt="">&nbsp;<span>Teachers</span> </li>
+            <li routerLink="/adminmajorsubject"><img src="assets/subjectsadmin.png" alt="">&nbsp;<span>Subjects/Majors</span> </li>
+            <li routerLink="/admincourse"><img src="assets/course.jpg" alt="">&nbsp;<span>Course</span> </li>
+            <li routerLink="/adminreport"><img src="assets/report.jpg" alt="">&nbsp;<span>Reports</span> </li>
+            <li><img src="assets/settings.png" alt="">&nbsp;<span>Settings</span> </li>
+        </ul>
+    </div>
+    <div class="container">
+        <div class="header">
+           
+        </div>
+        <div class="content">
+           <br>
+           <br>
+           <br>
+           <br>
+           <br>
+            <div class="content-2">
+                <div class="recent-payments">
+                    <div class="title">
+                        <h2>Students</h2>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Number</th>
+                                <th>Major</th>
+                                <th>Specialty</th>
+                                <th>Enrollment Year</th>
+                                <th>Option</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let student of students">
+                                <td>{{ student.firstName }} {{ student.lastName }}</td>
+                                <td>{{ student.email }}</td>
+                                <td>{{ student.number }}</td>
+                                <td>{{ student.majorName }}</td>
+                                <td>{{ student.specialtyName }}</td>
+                                <td>{{ student.enrollmentYear }}</td>
+
+                                <td>
+                                    <button class="edit-btn" (click)="selectStudent(student)">Edit</button>
+                                    <button class="delete-btn" (click)="deleteStudent(student.id)">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- Inside the recent-payments div -->
+<div class="update-student-form" *ngIf="selectedStudent">
+    <h2>Edit Student</h2>
+    <form (ngSubmit)="updateStudent()" #updateForm="ngForm">
+      <div>
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" [(ngModel)]="selectedStudent.firstName" required>
+      </div>
+      <div>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" [(ngModel)]="selectedStudent.lastName" required>
+      </div>
+      <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" [(ngModel)]="selectedStudent.email" required>
+      </div>
+      <div>
+        <label for="number">Number:</label>
+        <input type="text" id="number" name="number" [(ngModel)]="selectedStudent.number" required>
+      </div>
+      <div>
+        <label for="major">Major:</label>
+        <input type="text" id="major" name="major" [(ngModel)]="selectedStudent.enrollment.major.name" required>
+      </div>
+      <div>
+        <label for="enrollmentYear">Enrollment Year:</label>
+        <select id="enrollmentYear" name="enrollmentYear" [(ngModel)]="selectedStudent.enrollmentYear" required>
+          <option value="PRIMAIRE">PRIMAIRE</option>
+          <option value="SECONDAIRE">SECONDAIRE</option>
+          <option value="TERTIAIRE">TERTIAIRE</option>
+        </select>
+      </div>
+      <button type="submit">Update</button>
+    </form>
+  </div>
+
+  
+  
+                </div>
+            </div>
+        </div>
+    </div>

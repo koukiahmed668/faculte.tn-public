@@ -1,0 +1,41 @@
+<div class="modal-overlay" [class.hidden]="!isModalOpen">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Comments</h3>
+            <span class="close-button" (click)="closeModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+           <!-- Updated HTML structure -->
+            <div class="comments-container">
+                <div class="comment" *ngFor="let comment of comments">
+                    <div class="comment-container">
+                        <div class="comment-header" *ngIf="comment.user">
+                            <h4>{{ comment.user.firstName }} {{ comment.user.lastName }}</h4>
+                        </div>
+                        <div class="comment-body">
+                            <div *ngIf="comment.editing; else displayContent">
+                                <textarea [(ngModel)]="comment.updatedContent" placeholder="Edit your comment"></textarea>
+                                <button class="update-button" (click)="saveUpdatedComment(comment)">Update</button>
+                            </div>
+                            <ng-template #displayContent>
+                                <div class="comment-content">
+                                    <p>{{ comment.content }}</p>
+                                </div>
+                                <div class="comment-actions">
+                                    <button *ngIf="comment.user.id === loggedInUserId" class="edit-button" (click)="toggleEditMode(comment)">Edit</button>
+                                    <button *ngIf="comment.user.id === loggedInUserId" class="delete-button" (click)="removeComment(comment.id)">Delete</button>
+                                    <button *ngIf="comment.user.id !== loggedInUserId" class="report-button" (click)="reportComment(comment.id)">Report</button>
+                                </div>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="new-comment-container">
+                <textarea [(ngModel)]="newComment" placeholder="Write a comment"></textarea>
+                <button [class.disabled]="newComment.trim() === ''" (click)="addComment()">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>

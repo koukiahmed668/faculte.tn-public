@@ -1,0 +1,86 @@
+.notification-container {
+    position: relative;
+    z-index: 1;
+}
+
+.notification-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 88%;
+    transform: translateX(-50%);
+    width: 320px; /* Adjust width as needed */
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+
+   
+}
+
+
+
+.notification-dropdown ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.notification-dropdown li {
+    position: relative; /* Ensure position relative for proper positioning of delete button */
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.3s ease;
+}
+
+.notification-dropdown li:last-child {
+    border-bottom: none;
+}
+
+.notification-dropdown li p {
+    margin: 0;
+    font-weight: bold;
+    color: #333;
+}
+
+.notification-dropdown li small {
+    color: #777;
+}
+
+/* Hover Effect */
+.notification-dropdown li:hover {
+    background-color: #f8f8f8;
+    cursor: pointer;
+}
+
+.notification-dropdown button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.notification-dropdown button:hover {
+    background-color: #0056b3;
+}
+
+.notification-dropdown button.delete-button {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    background-color: #dc3545; /* Red color for delete button */
+    font-weight: bold;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 50%; /* Make it a circle */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.notification-dropdown button.delete-button:hover {
+    background-color: #c82333; /* Darker shade of red on hover */
+}

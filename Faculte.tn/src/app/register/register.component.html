@@ -1,0 +1,61 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="#" routerLink="/">
+      <img src="assets/facultetext.png" alt="Faculte.tn Logo">
+    </a>
+
+    <div class="navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#">{{ 'courses' | translate }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">{{ 'certifications' | translate }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">{{ 'aboutUs' | translate }}</a>
+        </li>
+      </ul>
+
+      <div class="ml-auto">
+        <button class="btn btn-outline-secondary mr-2" routerLink="/sign-in">{{ 'signIn' | translate }}</button>
+        <button class="btn btn-primary" routerLink="/register">{{ 'joinNow' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid registration-container">
+  <!-- Left Section: Image -->
+  <div class="left-section">
+    <!-- Add an image tag with the source of your picture -->
+    <img src="assets/elearn.png" alt="Your Image" class="registration-image">
+  </div>
+
+  <!-- Right Section: Student and Teacher Registration -->
+  <div class="right-section">
+    <!-- Student Registration -->
+    <div class="col-md-12 student-registration">
+      <div class="welcome-message">
+        <h2>{{ 'studentWelcomeTitle' | translate }}</h2>
+        <p>{{ 'studentWelcomeText' | translate }}</p>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-primary btn-block" routerLink="/studentloginform">{{ 'next' | translate }}</button>
+      </div>
+    </div>
+
+    <!-- Teacher Registration -->
+    <div class="col-md-12 teacher-registration">
+      <div class="welcome-message">
+        <h2>{{ 'teacherWelcomeTitle' | translate }}</h2>
+        <p>{{ 'teacherWelcomeText' | translate }}</p>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-primary btn-block" routerLink="/teacherloginform">{{ 'next' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>

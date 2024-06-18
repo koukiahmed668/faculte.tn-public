@@ -1,0 +1,14 @@
+<!-- language-switcher.component.html -->
+<div class="language-switcher-container">
+    <div class="language-popup" [ngClass]="{ 'show-popup': showPopup }">
+      <div class="language-popup-content">
+        <label for="languageSelect">Select Language:</label>
+        <select id="languageSelect" #languageSelect (change)="changeLanguage(languageSelect.value)">
+          <option *ngFor="let lang of supportedLanguages" [value]="lang.code">{{ lang.name }}</option>
+        </select>
+      </div>
+      <!-- Logout button -->
+      <button class="logout-button" (click)="logout()">Logout</button>
+    </div>
+  </div>
+  

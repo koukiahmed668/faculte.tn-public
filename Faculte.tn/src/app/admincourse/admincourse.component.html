@@ -1,0 +1,180 @@
+
+<div class="side-menu">
+    <div class="brand-name">
+        <h1>Faculté.tn</h1>
+    </div>
+    <ul>
+        <li routerLink="/admin"><img src="assets/student.png" alt="">&nbsp;<span>Students</span> </li>
+        <li routerLink="/adminteacher"><img src="assets/teacher.png" alt="">&nbsp;<span>Teachers</span> </li>
+        <li routerLink="/adminmajorsubject"><img src="assets/subjectsadmin.png" alt="">&nbsp;<span>Subjects/Majors</span> </li>
+        <li routerLink="/admincourse"><img src="assets/course.jpg" alt="">&nbsp;<span>Course</span> </li>
+        <li routerLink="/adminreport"><img src="assets/report.jpg" alt="">&nbsp;<span>Reports</span> </li>
+        <li><img src="assets/money.jpg" alt="">&nbsp;<span>Payments</span> </li>
+        <li><img src="assets/settings.png" alt="">&nbsp;<span>Settings</span> </li>
+    </ul>
+</div>
+<div class="container">
+    <div class="header">
+        <div class="nav">
+            <div class="search">
+
+                <input type="text" placeholder="Search..">
+                <button type="submit"></button>
+            </div>
+            
+        </div>
+    </div>
+    <div class="content">
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="content-2">
+            <div class="recent-payments">
+                <div class="title">
+                    <h2>Courses</h2>
+                    <button class="edit-btn" (click)="openAddCourseForm()">Add Course</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Teacher</th>
+                            <th>Option</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let course of courses">
+                            <td>{{ course.name }}</td>
+                            <td>{{ course.description }}</td>
+                            <td>{{ course.price }}</td>
+                            <td>
+                                <ng-container *ngFor="let teacher of teachers">
+                                  <ng-container *ngIf="teacher.id === course.teacherId">
+                                    {{ teacher.firstName }} {{ teacher.lastName }}
+                                  </ng-container>
+                                </ng-container>
+                              </td>
+                             <td>
+                                <button class="edit-btn" *ngIf="selectedCourse" (click)="fetchEnrollments(selectedCourse.id)">See Enrollments</button>
+                                <button class="edit-btn" (click)="selectCourse(course)">Edit</button>
+                                <button class="delete-btn" (click)="deleteCourse(course.id)">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="proposed-courses">
+                    <div class="propose">
+                        <h2>Proposed Courses</h2>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let proposedCourse of proposedCourses">
+                                <td>{{ proposedCourse.name }}</td>
+                                <td>{{ proposedCourse.description }}</td>
+                                <td>{{ proposedCourse.price }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div *ngIf="selectedCourse">
+                    <div *ngIf="enrollments.length > 0">
+                        <h3>Enrollments for {{ selectedCourse.name }}</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Enrollment Date</th>
+                                    <th>Payment Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let enrollment of enrollments">
+                                    <td>{{ enrollment.id }}</td>
+                                    <td>{{ enrollment.enrollmentDate }}</td>
+                                    <td>{{ enrollment.paymentStatus ? 'Paid' : 'Unpaid' }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Inside the recent-courses div -->
+                <div class="update-student-form" *ngIf="selectedCourse">
+                    <h2>Edit Course</h2>
+                    <form (ngSubmit)="updateCourse()" #updateForm="ngForm">
+                        <div>
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" name="name" [(ngModel)]="selectedCourse.name" required>
+                        </div>
+                        <div>
+                            <label for="description">Description:</label>
+                            <input type="text" id="description" name="description" [(ngModel)]="selectedCourse.description" required>
+                        </div>
+                        <div>
+                            <label for="price">Price:</label>
+                            <input type="text" id="price" name="price" [(ngModel)]="selectedCourse.price" required>
+                        </div>
+                        <div>
+                            <label for="teacherId">Teacher:</label>
+                            <select id="teacherId" name="teacherId" [(ngModel)]="newCourse.teacherId" required>
+                                <option *ngFor="let teacher of teachers" [value]="teacher.id">{{ teacher.firstName }} {{ teacher.lastName }} - {{ teacher.majorName }}</option>
+                            </select>
+                            
+                            
+                        </div>
+                        
+                        
+                        <!-- Add more fields if needed -->
+                        <button type="submit">Update</button>
+                    </form>
+                </div>
+    
+                <div class="update-student-form" *ngIf="isAddCourseFormOpen">
+                    <h2>Add Course</h2>
+                    <form (ngSubmit)="saveCourse()" #addCourseForm="ngForm" enctype="multipart/form-data">
+                        <div>
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" name="name" [(ngModel)]="newCourse.name" required>
+                        </div>
+                        <div>
+                            <label for="description">Description:</label>
+                            <input type="text" id="description" name="description" [(ngModel)]="newCourse.description" required>
+                        </div>
+                        <div>
+                            <label for="price">Price:</label>
+                            <input type="text" id="price" name="price" [(ngModel)]="newCourse.price" required>
+                        </div>
+                        <div>
+                            <label for="teacherId">Teacher:</label>
+                            <select id="teacherId" name="teacherId" [(ngModel)]="newCourse.teacherId" required>
+                                <option *ngFor="let teacher of teachers" [value]="teacher.id">{{ teacher.firstName }} {{ teacher.lastName }} - {{ teacher.majorName }}</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="meetingDateTime">Meeting Date Time:</label>
+                            <input type="text" id="meetingDateTime" name="meetingDateTime" [(ngModel)]="newCourse.meetingDateTime" required>
+                        </div>
+                        <div>
+                            <label for="file">File:</label>
+                            <input type="file" id="file" name="file" (change)="onFileSelected($event)" accept=".png,.jpg,.jpeg">
+                        </div>
+                        <!-- Add more fields if needed -->
+                        <button type="submit">Save Course</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+

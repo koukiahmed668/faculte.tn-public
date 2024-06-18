@@ -1,0 +1,37 @@
+<div class="chat-dialog-container" [class.show-popup]="showChatContainer">
+  <h2>{{ friendFirstName }} {{ friendLastName }}</h2>
+  <div class="chat-container">
+    <button class="close-button" (click)="toggleChatContainer()">&#x2716;</button>
+    <div class="chat-messages" #chatMessagesContainer>
+      <ng-container *ngFor="let msg of chatMessages" >
+        <div class="message" (mouseenter)="showOptionsPanel()" (mouseleave)="hideOptionsPanel(msg)" *ngIf="msg" [ngClass]="{'sent-message': msg.senderId === loggedInUserId, 'received-message': msg.senderId !== loggedInUserId}" >
+          <div *ngIf="msg.senderId !== loggedInUserId" class="sender-name">{{ msg.senderName }}</div>
+          <div class="message-content">
+            <span>{{ msg.content }}</span>
+            <div class="message-options" *ngIf="showMessageOptions">
+              <i class="fas fa-ellipsis-v" (click)="toggleEditMenu(msg)"></i>
+              <div class="edit-menu" *ngIf="msg.showEditMenu">
+                <button *ngIf="msg.senderId === loggedInUserId" (click)="editMessage(msg)">Edit</button>
+                <button *ngIf="msg.senderId === loggedInUserId" (click)="editMessage(msg)">Delete</button>
+
+                <div *ngIf="msg.isEditing">
+                  <input type="text" [(ngModel)]="msg.editContent">
+                  <button (click)="saveEditedMessage(msg)">Save</button>
+                  <button (click)="cancelEditing(msg)">Cancel</button>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        
+      </ng-container>
+      
+    </div>
+    
+    <div class="chat-input-area">
+      <input type="text" class="chat-input" [(ngModel)]="message" placeholder="Type a message...">
+      <button class="chat-button" (click)="sendMessage()">Send</button>
+    </div>
+  </div>
+</div>

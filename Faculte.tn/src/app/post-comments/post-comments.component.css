@@ -1,0 +1,192 @@
+/* post-comments.component.css */
+
+.modal-overlay {
+  position: fixed; /* Corrected typo */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  width: 70%; /* Adjust width as needed */
+  max-width: 600px; /* Maximum width */
+}
+
+.hidden {
+  display: none;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.modal-header h3 {
+  margin: 0;
+}
+
+.modal-body {
+  margin-bottom: 20px;
+}
+
+/* Add comment section */
+.new-comment-container textarea {
+  width: calc(100% - 32px); /* Adjust width to account for padding and borders */
+  min-height: 100px; /* Adjust height as needed */
+  resize: vertical;
+  margin-bottom: 10px;
+  padding: 8px; /* Added padding for better appearance */
+  border: 1px solid #ccc; /* Added border for better visibility */
+  border-radius: 5px; /* Added border-radius for rounded corners */
+}
+
+.new-comment-container button {
+  background-color: #007bff; /* Blue color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.new-comment-container button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
+
+
+.close-button {
+  cursor: pointer;
+  font-size: 18px;
+  color: #aaa;
+}
+
+.close-button:hover {
+  color: #666;
+}
+
+
+.comment {
+  display: flex;
+  align-items: center;
+}
+
+.comment textarea {
+  width: calc(100% - 100px); /* Adjust width to fit within the container */
+  min-height: 80px; /* Adjust height as needed */
+  resize: vertical;
+  margin-bottom: 10px;
+  padding: 8px; /* Added padding for better appearance */
+  border: 1px solid #ccc; /* Added border for better visibility */
+  border-radius: 5px; /* Added border-radius for rounded corners */
+}
+
+.comment .update-button {
+  background-color: #28a745; /* Green color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.comment .update-button:hover {
+  background-color: #218838; /* Darker shade on hover */
+}
+
+
+.comment .edit-button {
+  background-color: #007bff; /* Blue color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 12px;
+  cursor: pointer;
+  margin-right: 10px; /* Add margin for spacing */
+}
+
+.comment .edit-button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
+
+.comment .delete-button {
+  background-color: #ff6347; /* Tomato color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.report-button {
+  background-color: #ff0000; /* Red background color */
+  color: #fff; /* White text color */
+  border: none; /* No border */
+  padding: 8px 12px; /* Padding */
+  font-size: 14px; /* Font size */
+  cursor: pointer; /* Cursor style */
+  border-radius: 4px; /* Rounded corners */
+}
+
+.report-button:hover {
+  background-color: #cc0000; /* Darker red on hover */
+}
+
+
+.comment .delete-button:hover {
+  background-color: #ff3e26; /* Darker shade on hover */
+}
+
+.comment .spacer {
+  flex: 1; /* Spacer to push the delete button to the right */
+}
+
+
+
+
+.comment-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.comment-header {
+  align-self: flex-start;
+}
+
+.comment-body {
+  display: flex;
+  align-items: flex-start;
+}
+
+.comment-content {
+  flex-grow: 1;
+}
+
+.comment-actions {
+  display: flex;
+  align-items: center;
+}
+
+.comment-actions button {
+  margin-left: 2px;
+}
+
+.disabled {
+  pointer-events: none; /* Disable pointer events */
+  opacity: 0.3; /* Reduce opacity to visually indicate that the button is disabled */
+}

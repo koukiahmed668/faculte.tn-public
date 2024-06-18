@@ -1,0 +1,60 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="#" routerLink="/">
+      <img src="assets/facultetext.png" alt="Faculte.tn Logo" width="250" height="80">
+    </a>
+
+    <div class="navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        
+      </ul>
+
+      <div class="ml-auto">
+        <button class="btn btn-outline-secondary mr-2" routerLink="/sign-in">{{ 'signIn' | translate }}</button>
+        <button class="btn btn-primary" routerLink="/register">{{ 'joinNow' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid landing-container">
+  <div class="col-md-6 form-container">
+    <div class="welcome-message">
+      <h2>{{ 'welcomeBack' | translate }}</h2>
+    </div>
+
+    <form class="mt-4" #signInForm="ngForm">
+      <!-- Login Form -->
+      <div class="form-group">
+        <label for="email">{{ 'email' | translate }}:</label>
+        <input type="email" id="email" name="email" class="form-control" [(ngModel)]="email" required #emailInput="ngModel">
+        <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)" class="text-danger">
+          {{ 'emailRequired' | translate }}
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="password">{{ 'password' | translate }}:</label>
+        <input type="password" id="password" name="password" class="form-control" [(ngModel)]="password" required #passwordInput="ngModel">
+        <div *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)" class="text-danger">
+          {{ 'passwordRequired' | translate }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-primary btn-block" (click)="login()" [disabled]="signInForm.invalid">{{ 'signIn' | translate }}</button>
+        <div *ngIf="signInForm.invalid && (emailInput.dirty || passwordInput.dirty || emailInput.touched || passwordInput.touched)" class="text-danger">
+          {{ 'Missing fields' | translate }}
+        </div>
+        <div *ngIf="loginError" class="text-danger">{{ loginError }}</div>
+      </div>
+      <div class="form-group text-center">
+        <p>{{ 'forgotPassword' | translate }} <a href="#" routerLink="/forgot-password" class="text-info">{{ 'resetItHere' | translate }}</a></p>
+      </div>
+
+      <div class="form-group text-center">
+        <p>{{ 'noAccount' | translate }} <a href="#" routerLink="/register" class="text-info">{{ 'signUp' | translate }}</a></p>
+      </div>
+    </form>
+  </div>
+</div>

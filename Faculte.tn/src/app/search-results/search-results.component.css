@@ -1,0 +1,473 @@
+:root {
+    --background-color: var(--navbar-color);
+    --text-color: #000000;
+    --navbar-color: var(--navbar-color);
+  }
+  
+  /* Dark mode */
+  .dark-mode {
+    --background-color: #1e1e1e;
+    --text-color: var(--navbar-color);
+    --navbar-color:#242526;
+  }
+
+
+nav{
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--navbar-color);
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  nav .left .logo img{
+    width: 200px;
+    margin: 5px 0;
+    cursor: pointer;
+  }
+  
+  nav .left{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+  }
+  
+  nav .left .search_bar{
+    width: 250px;
+    height: 40px;
+    background: var(--navbar-color);
+    border-radius: 30px;
+    padding: 0 10px;
+    margin-left: 10px;
+    position: relative;
+    left: 15px;
+  }
+  
+  nav .left .search_bar i{
+    line-height: 40px;
+    font-size: 19px;
+    color: #919191;
+    margin-right: 5px;
+  }
+  
+  nav .left .search_bar input{
+    background: transparent;
+    outline: none;
+    border: 0;
+    font-size: 16px;
+    width: 200px;
+  }
+  
+  nav .center{
+    position: relative;
+    right: 45px;
+  }
+  
+  nav .center i{
+    margin: 0 45px 0 45px;
+    font-size: 22px;
+  }
+  
+  nav .center i:hover{
+    color: #45abff;
+    cursor: pointer;
+  }
+  
+  nav .right{
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+  }
+  
+  nav .right i{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: var(--navbar-color);
+    line-height: 35px;
+    padding-left: 8px;
+    font-size: 18px;
+    margin-left: 8px;
+    cursor: pointer;
+  }
+  
+  nav .right img{
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+    margin-left: 8px;
+    line-height: 45px;
+    cursor: pointer;
+  }
+  
+  nav {
+  /* Existing styles */
+  transition: background-color 0.3s ease; /* Smooth transition for background color change */
+}
+
+nav .right i:hover {
+  transform: scale(1.2);
+  transition: transform 0.3s ease;
+  color: blue; /* Change color to blue on hover */
+
+}
+
+.notification-badge {
+    position: absolute;
+    top: 10px; /* Adjust to align with the top of the bell icon */
+    right: 95px; /* Adjust to align with the right side of the bell icon */
+    background-color: red;
+    color: var(--navbar-color);
+    border-radius: 50%;
+    padding: 4px 8px;
+    font-size: 9px;
+  }
+
+  .main{
+    display: flex;
+    margin-top: 60px;
+    background: var(--background-color);
+    
+  }
+  
+  .main .left{
+    width: 25%;
+    height: 92vh;
+    overflow: hidden;
+    overflow-y: scroll;
+    background: var(--navbar-color);
+    padding: 20px 6px 5px 10px;
+    position: fixed;
+    box-shadow: 0 0.2px 15px rgba(0,0,0,0.3);
+    margin-top: 40px;
+    
+  }
+  
+  .main .left::-webkit-scrollbar{
+    width: 7px;
+  }
+  
+  .main .left::-webkit-scrollbar-thumb{
+    border-radius: 20px;
+    background: var(--background-color);
+  }
+  
+  .main .left:hover::-webkit-scrollbar-thumb{
+    background: var(--background-color);
+  }
+  
+  .main .left .img{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    margin-bottom: 5px;
+  }
+  .main .left .img:hover {
+    transform: translateX(8px); /* Move to the right slightly on hover */
+  
+  }
+  
+  
+  .main .left .img p {
+    font-size: 20px;
+    color: var(--text-color);
+    padding-left: 5px;
+    transition: color 0.4s;
+  
+  }
+  
+  .main .left .img:hover p {
+    color: #333333; /* Change text color on hover */
+  }
+  
+  .main .left .img i {
+    font-size: 32px; /* Adjust the font size as needed */
+    color: #007bff; /* Change the color to your preferred color */
+    margin-right: 10px; /* Add some spacing to the right */
+    transition: color 0.4s, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  
+  .main .left .img:hover i {
+    color: #45abff; /* Change color on hover */
+    transform: translateX(8px); /* Move to the right slightly on hover */
+  }
+  
+  .main .left .img img{
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+    margin: 8px 15px 8px 0;
+  }  
+
+  .main .left hr{
+    width: 100%;
+    height: 1px;
+    border: 0;
+    background: #5d5d5d;
+    margin: 10px 0;
+  }
+  
+  .main .left h2{
+    font-size: 18px;
+    color: #919191;
+    margin: 5px 0;
+  }
+  .main .center{
+    width: 50%;
+    height: auto;
+    padding: 20px 20px 0 20px;
+    background: var(--background-color);
+    margin-left: 35%;
+    
+  }
+  .main .center::-webkit-scrollbar{
+    width: 0;
+  }
+  
+  .main .center .friends_post{
+    margin: 10px 0;
+    width: 100%;
+    height: auto;
+    background: var(--navbar-color);
+    padding: 25px 15px;
+    border-radius: 7px;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.7);
+  }
+  
+  .main .center .friends_post .friend_post_top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+  
+  .main .center .friends_post .friend_post_top .img_and_name{
+    display: flex;
+    align-items: center;
+  }
+  
+  .main .center .friends_post .friend_post_top .img_and_name img{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    margin-right: 8px;
+    cursor: pointer;
+  }
+  
+  .main .center .friends_post .friend_post_top .img_and_name .friends_name .friends_name{
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .main .center .friends_post .friend_post_top .img_and_name .friends_name .friends_name a{
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text-color);
+  }
+  
+  .main .center .friends_post .friend_post_top .img_and_name .friends_name .friends_name:hover{
+    text-decoration: underline;
+  }
+  
+  .main .center .friends_post .friend_post_top .img_and_name .friends_name .time{
+    font-size: 14px;
+    color: #919191;
+    margin: 3px 0;
+  }
+  
+  .main .center .friends_post .friend_post_top .img_and_name .friends_name .time i{
+    font-size: 10px;
+    margin-left: 5px;
+  }
+  
+  .main .center .friends_post .friend_post_top .menu{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+  }
+  
+  .main .center .friends_post .friend_post_top .menu:hover{
+    background: var(--navbar-color);
+    cursor: pointer;
+  }
+  
+  .main .center .friends_post .friend_post_top .menu i{
+    line-height: 35px;
+    margin-left: 8px;
+    font-size: 18px;
+  }
+  
+  .main .center .friends_post img{
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 5px;
+  }
+  
+  .main .center .friends_post .info{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+  }
+  
+  .main .center .friends_post .info .emoji_img{
+    display: flex;
+  }
+  
+  .main .center .friends_post .info .emoji_img img{
+    width: 20px;
+    height: 20px;
+  }
+  
+  .main .center .friends_post .info .emoji_img p{
+    margin-left: 10px;
+    font-size: 16px;
+    color: #919191;
+  }
+  
+  .main .center .friends_post .info .comment{
+    display: flex;
+    align-items: center;
+  }
+  
+  .main .center .friends_post .info .comment p{
+    padding: 0 12px;
+    font-size: 15px;
+    color: #919191;
+  }
+  
+  .main .center .friends_post hr{
+    width: 100%;
+    height: 1px;
+    background: #5d5d5d;
+    border: 0;
+    margin: 10px 0;
+  }
+  
+  .main .center .friends_post .like{
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .main .center .friends_post .like .like_icon{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .like_icon.active {
+    color: blue; /* Change the color to blue when active */
+  }
+  
+  
+  .main .center .friends_post .like .like_icon i{
+    font-size: 20px;
+    margin-right: 8px;
+    color: #919191;
+  }
+  
+  
+  .main .center .friends_post .comment_warpper{
+    display: flex;
+    align-items: center;
+  }
+  
+  .main .center .friends_post .comment_warpper img{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    margin-right: 15px;
+  }
+  
+  .main .center .friends_post .comment_warpper .circle{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #27cc37;
+    border: 2px solid var(--navbar-color);
+    position: relative;
+    top: 15px;
+    right: 25px;
+  }
+  
+  .main .center .friends_post .comment_warpper .comment_search{
+    width: 95%;
+    padding: 5px 15px;
+    background: var(--navbar-color);
+    border-radius: 30px;
+  }
+  
+  .main .center .friends_post .comment_warpper .comment_search input{
+    width: 85%;
+    height: 30px;
+    background: none;
+    border: none;
+    outline: none;
+  }
+  
+  .main .center .friends_post .comment_warpper .comment_search i{
+    padding: 0 5px;
+    color: #919191;
+  }
+    
+  .search-results {
+    margin-top: 20px;
+  }
+  
+ 
+  
+  .user-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .user-card {
+    display: flex; /* Use flexbox layout */
+    align-items: center; /* Align items vertically */
+    width: 100%; /* Adjust width as needed */
+    height: auto; /* Let the height adjust based on content */
+    padding: 20px;
+    background-color: #b7dade; /* Background color */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Box shadow for depth */
+    margin-bottom: 20px; /* Spacing between user cards */
+  }
+  
+  .user-card img {
+    width: 60px; /* Adjust image width */
+    height: 60px; /* Adjust image height */
+    border-radius: 50%; /* Rounded image */
+    margin-right: 20px; /* Spacing between image and details */
+  }
+  
+  .user-details {
+    flex-grow: 1; /* Allow details to grow and take remaining space */
+  }
+  
+  .user-details a {
+    margin-bottom: 10px; 
+    text-decoration: none;
+    color: #000000;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  

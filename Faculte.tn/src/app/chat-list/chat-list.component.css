@@ -1,0 +1,82 @@
+
+.chat-popup-container {
+    position: fixed;
+    left: 550px;
+    width: 100%;
+    height: calc(100% - 50px); 
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; 
+    z-index: 9999;
+    overflow-y: auto; 
+  }
+  
+  
+  /* Chat list container */
+  .chat-list-container {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a shadow for depth */
+  }
+  
+  .chat-room {
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .chat-room:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .chat-room p {
+    margin: 0;
+  }
+  
+  /* Styling for room name */
+  .chat-room .room-name {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Styling for last message */
+  .chat-room .last-message {
+    color: #777;
+  }
+  
+  .notification {
+    position: relative;
+    margin-bottom: 15px;
+    padding-right: 25px; /* Add padding to the right to make space for the delete button */
+  }
+
+  .notification p {
+    margin: 0;
+    max-width: calc(100% - 30px); /* Adjust the maximum width as needed */
+  }
+  
+  
+  .delete-button {
+    position: absolute;
+    top: 50%; /* Adjust vertical positioning */
+    right: 5px;
+    transform: translateY(-50%); /* Center the button vertically */
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .delete-button:hover {
+    background-color: #c82333;
+  }
+  

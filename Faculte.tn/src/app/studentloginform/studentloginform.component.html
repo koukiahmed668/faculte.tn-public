@@ -1,0 +1,125 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="#" routerLink="/">
+      <img src="assets/facultetext.png" alt="Faculte.tn Logo" width="250" height="80">
+    </a>
+
+    <div class="navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        
+      </ul>
+
+      <div class="ml-auto">
+        <button class="btn btn-outline-secondary mr-2" routerLink="/sign-in">{{ 'signIn' | translate }}</button>
+        <button class="btn btn-primary" routerLink="/register">{{ 'joinNow' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid landing-container">
+  <div class="col-md-6 form-container">
+    <form (ngSubmit)="save()" method="post" [formGroup]="signupForm">
+      <div class="form-group">
+        <label for="firstName">{{ 'firstName' | translate }}:</label>
+        <input type="text" id="firstName" formControlName="firstName" class="form-control" required>
+        <div *ngIf="signupForm?.get('firstName')?.hasError('required') && signupForm?.get('firstName')?.touched" class="text-danger">
+          {{ 'firstNameRequired' | translate }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">{{ 'lastName' | translate }}:</label>
+        <input type="text" id="lastName" formControlName="lastName" class="form-control"  required>
+        <div *ngIf="signupForm?.get('lastName')?.hasError('required') && signupForm?.get('lastName')?.touched" class="text-danger">
+          {{ 'lastNameRequired' | translate }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="number">{{ 'number' | translate }}:</label>
+        <input type="tel" id="number" formControlName="number" class="form-control"  required>
+        <div *ngIf="signupForm?.get('number')?.hasError('required') && signupForm?.get('number')?.touched" class="text-danger">
+          {{ 'numberRequired' | translate }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">{{ 'email' | translate }}:</label>
+        <input type="email" id="email" formControlName="email" class="form-control" required>
+        <div *ngIf="signupForm?.get('email')?.hasError('required') && signupForm?.get('email')?.touched" class="text-danger">
+          {{ 'emailRequired' | translate }}
+        </div>
+        <div *ngIf="signupForm?.get('email')?.hasError('email') && signupForm?.get('email')?.touched" class="text-danger">
+          {{ 'invalidEmail' | translate }}
+        </div>
+        <div *ngIf="signupForm.get('email')?.hasError('duplicateEmail')" class="text-danger">
+          {{ 'emailAlreadyExists' | translate }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">{{ 'password' | translate }} ({{ 'passwordLength' | translate }}):</label>
+        <input type="password" id="password" formControlName="password" class="form-control"  required>
+        <div *ngIf="signupForm.get('password')?.hasError('required') && signupForm.get('password')?.touched" class="text-danger">
+          {{ 'passwordRequired' | translate }}
+        </div>
+        <div *ngIf="signupForm.get('password')?.hasError('minlength') && signupForm.get('password')?.touched" class="text-danger">
+          {{ 'passwordMinLength' | translate }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="majorName">{{ 'major' | translate }}:</label>
+        <select id="majorName" formControlName="majorName" class="form-control" required>
+          <option value="" disabled>{{ 'selectMajor' | translate }}</option>
+          <option value="informatique de gestion">{{ 'informaticsManagement' | translate }}</option>
+          <option value="gestion">{{ 'management' | translate }}</option>
+        </select>
+        <div *ngIf="signupForm?.get('majorName')?.hasError('required') && signupForm?.get('majorName')?.touched" class="text-danger">
+          {{ 'majorRequired' | translate }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="specialtyName">{{ 'specialty' | translate }}:</label>
+        <select id="specialtyName" formControlName="specialtyName" class="form-control" required>
+            <option value="" disabled>{{ 'selectSpecialty' | translate }}</option>
+=            <option value="BI">BI</option>
+        </select>
+        <div *ngIf="signupForm?.get('specialtyName')?.hasError('required') && signupForm?.get('specialtyName')?.touched" class="text-danger">
+            {{ 'specialtyRequired' | translate }}
+        </div>
+    </div>
+    
+
+      <div class="form-group">
+        <label for="enrollmentYear">{{ 'enrollmentYear' | translate }}:</label>
+        <select id="enrollmentYear" formControlName="enrollmentYear" class="form-control" required>
+          <option value="" disabled>{{ 'selectEnrollmentYear' | translate }}</option>
+          <option value="PRIMAIRE">{{ 'firstYear' | translate }}</option>
+          <option value="SECONDAIRE">{{ 'secondYear' | translate }}</option>
+          <option value="TERTIAIRE">{{ 'thirdYear' | translate }}</option>
+        </select>
+        <div *ngIf="signupForm?.get('enrollmentYear')?.hasError('required') && signupForm?.get('enrollmentYear')?.touched" class="text-danger">
+          {{ 'enrollmentYearRequired' | translate }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block" [disabled]="!signupForm.valid">{{ 'signUp' | translate }}</button>
+      </div>
+      <div *ngIf="successMessage" class="alert alert-success" role="alert">
+        {{ successMessage }}
+      </div>
+    </form>
+
+    <div *ngIf="showVerificationMessage" class="alert alert-info" role="alert">
+      {{ 'verifyEmailMessage' | translate }}
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage | translate }}
+    </div>
+  </div>
+</div>
+

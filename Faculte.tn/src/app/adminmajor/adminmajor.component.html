@@ -1,0 +1,138 @@
+<div class="side-menu">
+    <div class="brand-name">
+        <h1>Faculté.tn</h1>
+    </div>
+    <ul>
+        <li routerLink="/admin"><img src="assets/student.png" alt="">&nbsp;<span>Students</span> </li>
+        <li routerLink="/adminteacher"><img src="assets/teacher.png" alt="">&nbsp;<span>Teachers</span> </li>
+        <li routerLink="/adminmajorsubject"><img src="assets/subjectsadmin.png" alt="">&nbsp;<span>Subjects/Majors</span> </li>
+        <li routerLink="/admincourse"><img src="assets/course.jpg" alt="">&nbsp;<span>Course</span> </li>
+        <li routerLink="/adminreport"><img src="assets/report.jpg" alt="">&nbsp;<span>Reports</span> </li>
+        <li><img src="assets/money.jpg" alt="">&nbsp;<span>Payments</span> </li>
+        <li><img src="assets/settings.png" alt="">&nbsp;<span>Settings</span> </li>
+    </ul>
+</div>
+<div class="container">
+    <div class="header">
+        <div class="nav">
+            <div class="search">
+                <input type="text" placeholder="Search..">
+                <button type="submit"></button>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="content-2">
+            <div class="recent-payments">
+                <div class="title">
+                    <h2>Majors/Subjects</h2>
+                    <button class="edit-btn" (click)="toggleAddForm('major')">Add Major</button>
+                </div>
+
+                <div *ngIf="showAddForm === 'major'">
+                    <input type="text" [(ngModel)]="newMajorName" placeholder="Enter new major name" />
+                    <button class="submit-btn" (click)="addMajor()">Submit</button>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Major ID</th>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let major of majors">
+                            <tr>
+                                <td>{{ major.id }}</td>
+                                <td>
+                                    <ng-container *ngIf="!major.editing">{{ major.name }}</ng-container>
+                                    <ng-container *ngIf="major.editing">
+                                        <input type="text" [(ngModel)]="major.updatedName" />
+                                    </ng-container>
+                                </td>
+                                <td>
+                                    <button class="delete-btn" (click)="toggleAddForm('specialty', major.id)">Add Specialty</button>
+                                    <button class="delete-btn" (click)="toggleAddForm('subject', major.id)">Add Subject</button>
+                                    <button class="edit-btn" (click)="viewSpecialtiesByMajor(major.id)">View Specialties</button>
+                                    <button class="delete-btn" (click)="viewSubjectsBySpecialty(major.id)">View Subjects</button> <!-- Button to view subjects -->
+                                    <ng-container *ngIf="!major.editing">
+                                        <button class="edit-btn" (click)="toggleEdit(major)">Edit</button>
+                                    </ng-container>
+                                    <ng-container *ngIf="major.editing">
+                                        <button class="delete-btn" (click)="submitEdit(major)">Submit</button>
+                                    </ng-container>
+                                    <button class="delete-btn" (click)="deleteMajor(major.id)">Delete</button>
+                                </td>
+                            </tr>
+                            <div *ngIf="showAddForm === 'subject' && selectedMajorId === major.id" class="add-subject-form">
+                                <input type="text" [(ngModel)]="newSubjectName" placeholder="Enter new subject name" />
+                                <select [(ngModel)]="selectedSpecialtyId">
+                                    <option *ngFor="let specialty of major.specialties" [value]="specialty.id">{{ specialty.name }}</option>
+                                </select>
+                                <select [(ngModel)]="enrollmentYear">
+                                    <option value="PRIMAIRE">PRIMAIRE</option>
+                                    <option value="SECONDAIRE">SECONDAIRE</option>
+                                    <option value="TERTIAIRE">TERTIAIRE</option>
+                                </select>
+                                <button class="submit-btn" (click)="addSubject(newSubjectName, enrollmentYear)">Submit</button>
+                            </div>
+
+
+                            <div *ngIf="showAddForm === 'specialty' && selectedMajorId === major.id" class="add-specialty-form">
+                                <input type="text" [(ngModel)]="newSpecialtyName" placeholder="Enter new specialty name" />
+                                <button class="submit-btn" (click)="addSpecialty(newSpecialtyName, major.id)">Submit</button>
+                            </div>
+
+                            <div *ngFor="let specialty of specialties">
+                                <ng-container *ngIf="!specialty.editing; else editForm">
+                                  {{ specialty.name }}
+                                  <button class="edit-btn" (click)="toggleEditSpecialtyForm(specialty)">Edit</button>
+                                  <button class="delete-btn" (click)="deleteSpecialty(specialty.id)">Delete</button>
+                                </ng-container>
+                                <ng-template #editForm>
+                                  <!-- Edit Specialty form -->
+                                  <form (submit)="submitEditSpecialty(specialty)">
+                                    <input type="text" [(ngModel)]="specialty.updatedName" name="specialtyName" placeholder="Enter new specialty name" />
+                                    <button type="submit" class="submit-btn">Submit</button>
+                                    <button type="button" class="cancel-btn" (click)="cancelEditSpecialty(specialty)">Cancel</button>
+                                  </form>
+                                </ng-template>
+                              </div>
+                            
+                        </ng-container>
+                    </tbody>
+                </table>
+
+              <!-- Display subjects -->
+              <ul>
+                <li *ngFor="let subject of subjects">
+                    <ng-container *ngIf="!subject.editing; else editForm">
+                        {{ subject.name }}
+                        <button class="edit-btn" (click)="toggleEditSubjectForm(subject)">Edit</button>
+                        <button class="delete-btn" (click)="deleteSubject(subject.id)">Delete</button>
+                    </ng-container>
+                    <ng-template #editForm>
+                        <!-- Edit Subject form -->
+                        <form (submit)="submitEditSubject(subject)">
+                            <input type="text" [(ngModel)]="subject.updatedName" name="subjectName" placeholder="Enter new subject name" />
+                            <button type="submit" class="submit-btn">Submit</button>
+                            <button type="button" class="cancel-btn" (click)="cancelEditSubject(subject)">Cancel</button>
+                        </form>
+                    </ng-template>
+                </li>
+            </ul>
+
+
+           
+
+            </div>
+        </div>
+    </div>
+</div>

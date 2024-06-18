@@ -1,0 +1,365 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+h1,
+h2 {
+    color: #444;
+}
+
+h3 {
+    color: #999;
+}
+
+.edit-btn,
+.delete-btn {
+    padding: 5px 10px;
+    background-color: #007bff;
+    margin: 2px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.edit-btn:hover,
+.delete-btn:hover {
+    color: #007bff;
+    background: white;
+    padding: 3px 8px;
+    border: 2px solid #007bff;
+}
+
+td button {
+    margin-right: 5px; /* Adjust margin between buttons */
+}
+
+
+
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 15px 10px;
+    border-bottom: 2px solid #999;
+}
+
+table {
+    padding: 10px;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 8px;
+}
+
+.side-menu {
+    position: fixed;
+    background: #647adc;
+    width: 20vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.side-menu .brand-name {
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.side-menu li {
+    font-size: 24px;
+    padding: 10px 40px;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.side-menu li img{
+    width: 40px;
+    height: 40px;
+}
+
+.side-menu li:hover {
+    background: white;
+    color: #f05462;
+}
+
+.container {
+    position: absolute;
+    right: 0;
+    width: 80vw;
+    height: 100vh;
+    background: #f1f1f1;
+}
+
+.container .header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 80vw;
+    height: 10vh;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.container .header .nav {
+    width: 90%;
+    display: flex;
+    align-items: center;
+}
+
+.container .header .nav .search {
+    flex: 3;
+    display: flex;
+    justify-content: center;
+}
+
+.container .header .nav .search input[type=text] {
+    border: none;
+    background: #f1f1f1;
+    padding: 10px;
+    width: 50%;
+}
+
+.container .header .nav .search button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container .header .nav .search button img {
+    width: 30px;
+    height: 30px;
+}
+
+.container .header .nav .user {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container .header .nav .user img {
+    width: 40px;
+    height: 40px;
+}
+
+.container .header .nav .user .img-case {
+    position: relative;
+    width: 50px;
+    height: 50px;
+}
+
+.container .header .nav .user .img-case img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.container .content {
+    position: relative;
+    margin-top: 10vh;
+    min-height: 90vh;
+    background: #f1f1f1;
+}
+
+.container .content .cards {
+    padding: 20px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.container .content .cards .card {
+    width: 250px;
+    height: 150px;
+    background: white;
+    margin: 20px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.container .content .content-2 {
+    min-height: 60vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.container .content .content-2 .recent-payments {
+    min-height: 50vh;
+    flex: 5;
+    background: white;
+    margin: 0 25px 25px 25px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: flex;
+    flex-direction: column;
+}
+
+.container .content .content-2 .new-students {
+    flex: 2;
+    background: white;
+    min-height: 50vh;
+    margin: 0 25px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: flex;
+    flex-direction: column;
+}
+
+.container .content .content-2 .new-students table td:nth-child(1) img {
+    height: 40px;
+    width: 40px;
+}
+
+.update-student-form {
+    background-color: white;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.update-student-form h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.update-student-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.update-student-form form div {
+    margin-bottom: 15px;
+}
+
+.update-student-form form label {
+    font-weight: bold;
+}
+
+.update-student-form form input[type="text"],
+.update-student-form form input[type="email"],
+.update-student-form form input[type="number"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.update-student-form form button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.update-student-form form button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+
+/* Add Subjects Form */
+.add-subject-form {
+    margin-top: 20px;
+}
+
+.add-subject-form input[type="text"],
+.add-subject-form select {
+    width: 200px;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.add-subject-form button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-subject-form button:hover {
+    background-color: #0056b3;
+}
+
+  
+
+
+@media screen and (max-width: 1050px) {
+    .side-menu li {
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 940px) {
+    .side-menu li span {
+        display: none;
+    }
+    .side-menu {
+        align-items: center;
+    }
+    .side-menu li img {
+        width: 40px;
+        height: 40px;
+    }
+    .side-menu li:hover {
+        background: #f05462;
+        padding: 8px 38px;
+        border: 2px solid white;
+    }
+}
+
+@media screen and (max-width:536px) {
+    .brand-name h1 {
+        font-size: 16px;
+    }
+    .container .content .cards {
+        justify-content: center;
+    }
+    .side-menu li img {
+        width: 30px;
+        height: 30px;
+    }
+    .container .content .content-2 .recent-payments table th:nth-child(2),
+    .container .content .content-2 .recent-payments table td:nth-child(2) {
+        display: none;
+    }
+}
+
+

@@ -1,0 +1,19 @@
+<div class="course-proposal-form">
+    <h2>{{ 'proposeCourse' | translate }}</h2>
+    <form (ngSubmit)="createProposedCourse()">
+      <div class="form-group">
+        <label for="name">{{ 'course Name' | translate }}</label>
+        <input type="text" id="name" name="name" [(ngModel)]="courseName" required>
+      </div>
+      <div class="form-group">
+        <label for="description">{{ 'course Description' | translate }}</label>
+        <textarea id="description" name="description" [(ngModel)]="courseDescription" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="price">{{ 'course Price' | translate }}</label>
+        <input type="number" id="price" name="price" [(ngModel)]="coursePrice" required>
+      </div>
+      <button type="submit">{{ 'send' | translate }}</button>
+    </form>
+  </div>
+  

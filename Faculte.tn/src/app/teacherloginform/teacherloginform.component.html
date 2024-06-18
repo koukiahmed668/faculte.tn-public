@@ -1,0 +1,57 @@
+<!-- navbar.component.html -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="#" routerLink="/">
+      <img src="assets/facultetext.png" alt="Faculte.tn Logo" width="250" height="80">
+    </a>
+
+    <div class="navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        
+      </ul>
+
+      <div class="ml-auto">
+        <button class="btn btn-outline-secondary mr-2" routerLink="/sign-in">{{ 'signIn' | translate }}</button>
+        <button class="btn btn-primary" routerLink="/register">{{ 'joinNow' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- landing-form.component.html -->
+<div class="container-fluid landing-container">
+  <div class="col-md-6 form-container">
+    <div *ngIf="successMessage" class="alert alert-success" role="alert">
+      {{ successMessage }}
+    </div>
+    <!-- Display error message -->
+    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+      {{ errorMessage }}
+    </div>
+    <form (ngSubmit)="submitForm()">
+      <div class="form-group">
+        <label for="firstName">{{ 'firstName' | translate }}:</label>
+        <input type="text" id="firstName" name="firstName" class="form-control" [(ngModel)]="firstName" required>
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">{{ 'lastName' | translate }}:</label>
+        <input type="text" id="lastName" name="lastName" class="form-control" [(ngModel)]="lastName" required>
+      </div>
+
+      <div class="form-group">
+        <label for="number">{{ 'number' | translate }}:</label>
+        <input type="tel" id="number" name="number" class="form-control" [(ngModel)]="number" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">{{ 'email' | translate }}:</label>
+        <input type="email" id="email" name="email" class="form-control" [(ngModel)]="email" required>
+      </div>
+  
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block">{{ 'requestToBePartOfUs' | translate }}</button>
+      </div>
+    </form>
+  </div>
+</div>

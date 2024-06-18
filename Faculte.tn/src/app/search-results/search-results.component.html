@@ -1,0 +1,198 @@
+<nav>
+
+    <div class="left">
+  
+        <div class="logo">
+            <img src="assets/facultetext.png">
+        </div>
+  
+        <div class="search_bar">
+  
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="{{ 'searchPlaceholder' | translate }}" #searchInput (keydown.enter)="search(searchInput.value)">
+  
+        </div>
+  
+    </div>
+  
+  
+  
+    <div class="right">
+  
+      <i class="fa-solid fa-list-ul" (click)="languageSwitcher.togglePopup()"></i>
+        <i class="fa-solid fa-message" (click)="toggleChatList()"></i>
+        <div class="notification-icon" (click)="toggleNotification()">
+          <i class="fa-solid fa-bell"></i>
+          <div class="notification-badge">0</div>
+        </div>      
+        <i class="fa-solid fa-moon" (click)="toggleDarkMode()"></i>
+        <img src="assets/profile.png" [routerLink]="['/profile', loggedInUserId]">
+  
+    </div>
+  
+  </nav>
+  <app-language-switcher #languageSwitcher></app-language-switcher>
+  <app-notification *ngIf="showNotification" #notification></app-notification>
+  <app-chat-list *ngIf="showChatList"></app-chat-list> <!-- Add chat list component with ngIf -->
+  
+
+  <div class="main">
+
+    <!------------------left------------------->
+  
+    <div class="left">
+  
+      <div class="img">
+        <i class="fa-solid fa-book"></i> 
+        <p>{{ 'Posts' | translate }}</p>
+      </div>
+    
+  
+     
+  
+      <div class="img">
+        <i class="fa-solid fa-user-group"></i>
+          <p>{{ 'People' | translate }}</p>
+      </div>
+  
+     
+  
+  </div>
+
+  <div class="center">
+    <div *ngFor="let post of posts" class="friends_post">
+
+        <div class="friend_post_top">
+
+          <div class="img_and_name">
+              <!-- Update the routerLink to navigate to the profile page of the post author -->
+              <img src="assets/profile.png" [routerLink]="['/profile', post.author?.id]">
+              <div class="friends_name">
+                  <!-- Display the author's name and ID -->
+                  <p class="friends_name">
+                      <!-- Update the routerLink to pass the user's ID as a parameter -->
+                      <a [routerLink]="['/profile', post.author?.id]">
+                          {{ post.author?.firstName }} {{ post.author?.lastName }}
+                      </a>
+                  </p>
+                  <p class="time">{{ post.createdAt | date }}<i class="fa-solid fa-user-group"></i></p>
+              </div>
+          </div>
+
+            <div class="menu" (click)="toggleMenu(post.id)">
+              <i class="fa-solid fa-ellipsis"></i>
+              <!-- Add a ngIf directive to conditionally display the menu -->
+              <div *ngIf="post.showMenu" class="menu-options">
+                  <!-- Call the deletePost method with both postId and loggedInUserId -->
+                  <p (click)="savePost(post.id)">{{ 'savePost' | translate }}</p>
+                  <p *ngIf="post.author.id !== loggedInUserId" (click)="reportPost(post.id)">{{ 'Report Post' }}</p>
+                  <p *ngIf="post.author.id === loggedInUserId" (click)="toggleEdit(post)">{{ 'editPost' | translate }}</p>
+                  <p *ngIf="post.author.id === loggedInUserId" (click)="deletePost(post.id)">{{ 'deletePost' | translate }}</p>
+
+              </div>
+          </div>
+
+        </div>
+
+        <p>{{ post.content }}</p>
+
+       <!-- Display the file if exists -->
+         <!-- OR Display images/files using a carousel/slider -->
+        <!-- Display images/files using a carousel/slider -->
+        <div class="post-files-carousel">
+          <!-- Check if post.files is defined before accessing its length property -->
+          <ng-container *ngIf="post.files">
+            <!-- Display the file if only one file exists -->
+            <img *ngIf="post.files.length === 1 && isImageFile(post.files[0])" [src]="post.files[0].fileUrl" alt="{{ post.files[0].fileName }}">
+            
+            <!-- Use NgbCarousel for multiple files -->
+            <ngb-carousel *ngIf="post.files.length > 1">
+                <ng-template ngFor let-file [ngForOf]="post.files">
+                    <ng-template ngbSlide>
+                        <!-- Display image/file -->
+                        <img *ngIf="isImageFile(file)" [src]="file.fileUrl" alt="{{ file.fileName }}">
+                        <!-- Add other file types here if needed -->
+                    </ng-template>
+                </ng-template>
+            </ngb-carousel>
+          </ng-container>
+        </div>
+
+
+
+        <div class="info">
+
+            <div class="emoji_img">
+              <p>{{ post.likeCount }} {{ 'likes' | translate }}</p>
+            </div>
+
+            <div class="comment">
+              <p>{{ post.commentCount }} {{ 'comments' | translate }}</p>
+              <p>{{ post.shareCount }} {{ 'shares' | translate }}</p>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <div class="like">
+
+          <div class="like_icon" [class.active]="post.liked" (click)="toggleLike(post)" (click)="likePost(post.id)">
+              <i class="fa-solid fa-thumbs-up activi"></i>
+                <p>{{ 'like' | translate }}</p>
+            </div>
+
+            <div class="like_icon" (click)="toggleComments(post)">
+                <i class="fa-solid fa-message"></i>
+                <p>{{ 'comments' | translate }}</p>
+
+            </div>
+
+            <div class="like_icon" (click)="openShareModal(post)">
+                <i class="fa-solid fa-share"></i>
+                <p>{{ 'share' | translate }}</p>
+            </div>
+
+        </div>
+
+        <hr>
+        <app-post-comments *ngIf="post.showComments" [postId]="post.id"></app-post-comments>
+
+
+        <div class="comment_warpper">
+
+            <img src="assets/profile.png" routerLink="/profilepage">
+            <div class="circle"></div>
+
+            <div class="comment_search">
+
+                <input type="text" placeholder="{{ 'writeCommentPlaceholder' | translate }}">
+
+            </div>
+
+        </div>
+        <div *ngIf="post.showEditForm">
+          <textarea [(ngModel)]="newContent"></textarea> <!-- Textarea for updating content -->
+          <input type="file" (change)="onNewFilesSelected($event)" multiple> <!-- File input for uploading files -->
+          <button (click)="updatePost(post.id, newContent, newFiles)">{{ 'updatePost' | translate }}</button>
+          <button (click)="toggleEdit(post)">{{ 'cancel' | translate }}</button> <!-- Button to cancel editing -->
+        </div>
+
+    </div>
+    <div class="search-results">
+        <div class="user-list">
+          <div *ngFor="let user of searchedUsers" class="user-card">
+            <img src="assets/profile.png" alt="User Avatar">
+            <div class="user-details">
+              <a [routerLink]="['/profile', user.id]">{{ user.firstName }} {{ user.lastName }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+  </div>
+
+
+
+
+  </div>

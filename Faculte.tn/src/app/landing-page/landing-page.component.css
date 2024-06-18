@@ -1,0 +1,263 @@
+/* Import Bootstrap */
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+/* Global Styles */
+* {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Use a common font stack */
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: #f8f9fa; /* Set background color for the body */
+}
+
+/* Navbar Styles */
+.navbar {
+  background-color: #007bff; /* Change navbar background color to blue */
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.navbar-brand img {
+  max-width: 100%;
+  width: 200px; /* Adjust logo width */
+}
+
+.navbar-nav {
+  margin-left: auto;
+}
+
+.navbar-nav a {
+  margin-right: 20px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+
+
+.navbar-nav a:hover {
+  color: #5086bd; /* Change navbar link hover color */
+}
+
+
+
+.ml-auto .btn {
+  margin-left: 10px;
+}
+
+/* Button Styles */
+.btn-outline-secondary {
+  color: #007bff;
+  border-color: #007bff;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 12px 24px;
+  font-size: 18px;
+  border-radius: 30px;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  padding: 12px 24px;
+  font-size: 18px;
+  border-radius: 30px;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3; /* Darker shade for hover */
+  border-color: #0056b3;
+}
+
+/* Welcome Section Styles */
+.welcome-message {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.welcome-info {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.welcome-info p {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.paragraph {
+  font-size: 24px;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Form Container Styles */
+.form-container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: #333;
+  animation: fadeIn 1s ease; /* Apply fade-in animation */
+  margin-top: 60px;
+  float: right;
+}
+
+/* Video Container Styles */
+.video-container {
+  flex: 1;
+  position: relative;
+}
+
+.video-container video {
+  width: 80%;
+  max-height: 80vh;
+  object-fit: cover;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  margin-top: 300px;
+}
+
+/* Additional Button Animations */
+.btn-primary, .btn-outline-secondary {
+  transition: transform 0.3s ease;
+}
+
+.btn-primary:hover, .btn-outline-secondary:hover {
+  transform: scale(1.1);
+}
+
+/* Footer Styles */
+.footer {
+  background-color: #343a40;
+  color: #fff;
+  padding: 50px 0;
+}
+
+.footer p {
+  font-size: 18px;
+  text-align: center;
+}
+
+/* Card Styles */
+.card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 30px;
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.card-text {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Heading Styles */
+h1 {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+h3 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+h4 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Input Styles */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+textarea {
+  height: 150px;
+}
+
+/* Primary Heading Styles */
+.primary-heading {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* Secondary Heading Styles */
+.secondary-heading {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .video-container {
+    order: 2; /* Move video below the paragraph */
+  }
+
+  .form-container {
+    order: 1; /* Move paragraph above the video */
+  }
+}

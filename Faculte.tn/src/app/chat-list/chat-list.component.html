@@ -1,0 +1,11 @@
+<div class="chat-popup-container">
+    <div class="chat-list-container">
+        <div class="notification" *ngFor="let notification of notifications">
+            <ng-container *ngIf="notification.type === 'MESSAGE'">
+                <p>{{ notification.message }}</p>
+                <!-- X button for deletion -->
+                <button class="delete-button" (click)="deleteNotification(notification.id)">x</button>
+            </ng-container>
+        </div>
+    </div>
+</div>

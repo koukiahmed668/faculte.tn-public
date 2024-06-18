@@ -1,0 +1,113 @@
+.language-switcher-container {
+    position: relative;
+    z-index: 9999;
+    margin-right: 120px;
+}
+
+.language-popup {
+    position: absolute;
+    top: calc(100%);
+    right: 0;
+    background-color: #ffffff;
+    border: 2px solid #3b899e; /* Modern border color */
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Enhanced box shadow */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    width: 250px; /* Set a fixed width for the popup */
+}
+
+.language-popup.show-popup {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.language-popup-content {
+    padding: 16px; /* Increased padding */
+}
+
+.language-popup label {
+    display: block;
+    margin-bottom: 8px; /* Increased margin */
+    font-weight: bold; /* Bold font weight */
+    color: #333333; /* Darker text color */
+}
+
+.language-popup select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Add transition for border color and box-shadow */
+    font-family: 'Roboto', sans-serif; /* Modern font */
+}
+
+.language-popup select:focus {
+    border-color: #397e9b; /* Highlight border color on focus */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Add box shadow on focus */
+}
+
+.language-popup select option {
+    padding: 8px 12px; /* Adjust option padding */
+    font-family: 'Roboto', sans-serif; /* Modern font */
+}
+
+/* Animation for showing/hiding popup */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+/* Hover effect */
+.language-popup:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced box shadow on hover */
+}
+
+
+.logout-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #ff6347; /* Red color for logout button */
+    color: #ffffff; /* Text color */
+    border: none;
+    border-bottom-left-radius: 13px;
+    border-bottom-right-radius: 13px;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+  }
+  
+  .logout-button:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+  }
+  
+  .logout-button:focus {
+    background-color: #b71c1c; /* Even darker red on focus */
+  }
+  
+  .logout-button:active {
+    transform: translateY(2px); /* Button press effect */
+  }

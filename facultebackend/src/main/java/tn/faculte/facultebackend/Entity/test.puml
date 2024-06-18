@@ -1,0 +1,227 @@
+@startuml
+
+    class User {
+        +id: Long
+        +firstName: String
+        +lastName: String
+        +email: String
+        +number: String
+        +password: String
+        +verificationToken: String
+        +resetToken: String
+        +emailVerified: boolean
+    }
+
+    class Post {
+        +id: Long
+        +content: String
+        +createdAt: Date
+        +likeCount: int
+    }
+
+    class Subject {
+        +id: Long
+        +name: String
+        +enrollmentYear: EnrollmentYear
+    }
+
+    class Major {
+        +id: Long
+        +name: String
+    }
+
+    class Specialty {
+        +id: Long
+        +name: String
+    }
+
+    class PaidCourse {
+        +id: Long
+        +name: String
+        +description: String
+        +price: double
+        +meetingDateTime: LocalDateTime
+        +conferenceLink: String
+        +status: CourseStatus
+    }
+
+    class FileEntity {
+        +id: Long
+        +fileName: String
+        +data: byte[]
+        +fileType: String
+        +fileUrl: String
+        +createdAt: Date
+    }
+
+    class PaidCourseEnrollment {
+        +id: Long
+        +enrollmentDate: LocalDate
+        +paymentStatus: boolean
+    }
+
+    class Report {
+        +id: Long
+        +reason: String
+        +status: ReportStatus
+    }
+
+    class SharedPost {
+        +id: Long
+        +additionalContent: String
+        +createdAt: Date
+    }
+
+  class Role {
+      STUDENT
+      TEACHER
+      ADMIN
+  }
+
+  class ReportStatus {
+      PENDING
+      RESOLVED
+      DISMISSED
+  }
+
+  class EnrollmentYear {
+      PRIMAIRE
+      SECONDAIRE
+      TERTIAIRE
+  }
+
+  class CourseStatus {
+      PROPOSED
+      CREATED
+  }
+
+  class NotificationType {
+      FRIEND_REQUEST
+      MESSAGE
+  }
+
+  class MessageStatus {
+      SENT
+      DELIVERED
+      READ
+  }
+
+  class Notification {
+      +id: Long
+      +message: String
+      +type: NotificationType
+      +sender: User
+      +receiver: User
+  }
+
+  class Like {
+      +id: Long
+      +user: User
+      +post: Post
+  }
+
+  class Friendship {
+      +id: Long
+      +requester: User
+      +receiver: User
+      +accepted: boolean
+  }
+
+  class Enrollment {
+      +id: Long
+      +student: User
+      +major: Major
+      +specialty: Specialty
+      +enrollmentYear: EnrollmentYear
+  }
+
+  class Comment {
+      +id: Long
+      +post: Post
+      +user: User
+      +reports: List<Report>
+      +content: String
+  }
+
+  class ChatRoom {
+      +id: Long
+      +sender: User
+      +recipient: User
+  }
+
+  class ChatMessage {
+      +id: Long
+      +sender: User
+      +recipient: User
+      +content: String
+      +status: MessageStatus
+      +createdAt: LocalDateTime
+      +chatRoom: ChatRoom
+  }
+
+  class Bookmark {
+      +id: Long
+      +user: User
+      +post: Post
+  }
+
+
+    User "1" -- "1" Enrollment
+    User "1" -- "*" Post
+    User "1" -- "*" PaidCourse
+    User "1" -- "*" PaidCourseEnrollment
+    User "1" -- "*" SharedPost
+    User "1" -- "*" Role
+    User "1" -- "*" Friendship
+    User "1" -- "*" Notification
+    User "1" -- "*" ChatRoom
+    User "1" -- "*" ChatMessage
+    User "1" -- "*" Bookmark
+
+    Post "*" -- "1" Subject
+    Post "*" -- "*" FileEntity
+    Post "*" -- "*" SharedPost
+    Post "*" -- "*" Like
+    Post "*" -- "*" Comment
+    Post "*" -- "*" Report
+
+    Subject "*" -- "1" Major
+    Subject "*" -- "1" Specialty
+
+    Specialty "*" -- "1" Major
+
+    PaidCourse "1" -- "*" FileEntity
+    PaidCourse -- CourseStatus
+
+
+    PaidCourseEnrollment "1" -- "1" PaidCourse
+
+    Report "1" -- "1" User
+    Report -- ReportStatus
+
+
+
+    Like "1" -- "1" User
+    Like "1" -- "1" Post
+
+
+
+    Enrollment "*" -- "1" Major
+    Enrollment "*" -- "1" Specialty
+    Enrollment *-- EnrollmentYear : enrollmentYear
+
+
+    Comment "*" -- "1" User
+
+
+
+    ChatMessage "*" -- "1" ChatRoom
+
+    Bookmark "*" -- "1" Post
+
+
+Notification --|> NotificationType
+Notification --|> User
+
+
+@enduml

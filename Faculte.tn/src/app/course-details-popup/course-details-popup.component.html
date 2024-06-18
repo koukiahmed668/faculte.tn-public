@@ -1,0 +1,9 @@
+<div class="course-details" *ngIf="course"> <!-- Add ngIf directive to ensure course is defined -->
+    <button class="close-button" (click)="closePopup()">&times;</button>
+    <h2>{{ course.name }}</h2>
+    <p>{{ course.description }}</p>
+    <p>Price: {{ course.price }}</p>
+    <p>Teacher: {{ teacherFirstName }}</p> <!-- Display teacher's first name -->
+    <!-- Add additional course details here -->
+    <button class="enroll-button" (click)="enroll()">Enroll</button>
+</div>

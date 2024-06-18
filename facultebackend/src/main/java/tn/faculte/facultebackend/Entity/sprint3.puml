@@ -1,0 +1,75 @@
+@startuml
+
+    class User {
+        +id: Long
+        +firstName: String
+        +lastName: String
+        +email: String
+        +number: String
+        +password: String
+        +verificationToken: String
+        +resetToken: String
+        +emailVerified: boolean
+    }
+
+
+
+  class NotificationType {
+      FRIEND_REQUEST
+      MESSAGE
+  }
+
+
+  class Notification {
+      +id: Long
+      +message: String
+      +type: NotificationType
+      +sender: User
+      +receiver: User
+  }
+
+
+
+  class Friendship {
+      +id: Long
+      +requester: User
+      +receiver: User
+      +accepted: boolean
+  }
+
+  class ChatRoom {
+      +id: Long
+      +sender: User
+      +recipient: User
+  }
+
+  class ChatMessage {
+      +id: Long
+      +sender: User
+      +recipient: User
+      +content: String
+      +status: MessageStatus
+      +createdAt: LocalDateTime
+      +chatRoom: ChatRoom
+  }
+
+
+
+    User "1" -- "*" Friendship
+    User "1" -- "*" Notification
+    User "1" -- "*" ChatRoom
+    User "1" -- "*" ChatMessage
+
+
+
+
+
+    ChatMessage "*" -- "1" ChatRoom
+
+
+
+Notification --|> NotificationType
+Notification --|> User
+
+
+@enduml

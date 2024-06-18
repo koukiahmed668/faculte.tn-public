@@ -1,0 +1,143 @@
+@startuml
+
+    class User {
+        +id: Long
+        +firstName: String
+        +lastName: String
+        +email: String
+        +number: String
+        +password: String
+        +verificationToken: String
+        +resetToken: String
+        +emailVerified: boolean
+    }
+
+    class Post {
+        +id: Long
+        +content: String
+        +createdAt: Date
+        +likeCount: int
+    }
+
+    class Subject {
+        +id: Long
+        +name: String
+        +enrollmentYear: EnrollmentYear
+    }
+
+
+    class PaidCourse {
+        +id: Long
+        +name: String
+        +description: String
+        +price: double
+        +meetingDateTime: LocalDateTime
+        +conferenceLink: String
+        +status: CourseStatus
+    }
+
+    class FileEntity {
+        +id: Long
+        +fileName: String
+        +data: byte[]
+        +fileType: String
+        +fileUrl: String
+        +createdAt: Date
+    }
+
+    class PaidCourseEnrollment {
+        +id: Long
+        +enrollmentDate: LocalDate
+        +paymentStatus: boolean
+    }
+
+    class Report {
+        +id: Long
+        +reason: String
+        +status: ReportStatus
+    }
+
+    class SharedPost {
+        +id: Long
+        +additionalContent: String
+        +createdAt: Date
+    }
+
+
+  class ReportStatus {
+      PENDING
+      RESOLVED
+      DISMISSED
+  }
+
+
+  class CourseStatus {
+      PROPOSED
+      CREATED
+  }
+
+
+
+  class Like {
+      +id: Long
+      +user: User
+      +post: Post
+  }
+
+
+  class Comment {
+      +id: Long
+      +post: Post
+      +user: User
+      +reports: List<Report>
+      +content: String
+  }
+
+
+
+  class Bookmark {
+      +id: Long
+      +user: User
+      +post: Post
+  }
+
+
+    User "1" -- "*" Post
+    User "1" -- "*" PaidCourse
+    User "1" -- "*" PaidCourseEnrollment
+    User "1" -- "*" SharedPost
+    User "1" -- "*" Bookmark
+
+    Post "*" -- "1" Subject
+    Post "*" -- "*" FileEntity
+    Post "*" -- "*" SharedPost
+    Post "*" -- "*" Like
+    Post "*" -- "*" Comment
+    Post "*" -- "*" Report
+   Bookmark "*" -- "1" Post
+
+
+    PaidCourse "1" -- "*" FileEntity
+    PaidCourse -- CourseStatus
+
+
+    PaidCourseEnrollment "1" -- "1" PaidCourse
+
+    Report "1" -- "1" User
+    Report -- ReportStatus
+
+
+
+    Like "1" -- "1" User
+
+
+    Comment "*" -- "1" User
+
+
+
+
+
+
+
+
+@enduml
